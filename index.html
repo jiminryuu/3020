@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>U of M Events — Prototype</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            umMaroon: "#7A0019",
+            umGold: "#FFD100",
+            umGoldDark: "#E6BF00",
+            slateish: "#0f172a"
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/a2e0c6f1ad.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Map height + layering */
+    #map {
+      height: 66vh;
+      position: relative;
+      z-index: 0;
+    }
+
+    .leaflet-pane,
+    .leaflet-top,
+    .leaflet-bottom,
+    .leaflet-marker-pane,
+    .leaflet-popup-pane {
+      z-index: 10 !important;
+    }
+
+    /* UI always above the map */
+    #eventModal,
+    #toast,
+    nav,
+    aside,
+    .page-section {
+      z-index: 1000 !important;
+    }
+
+    .leaflet-popup {
+      z-index: 999 !important;
+    }
+
+    .fade-in {
+      animation: fade .18s ease-out;
+    }
+
+    /* Unified custom scrollbar for Registered Panel + Event Carousel */
+    #registeredPanel::-webkit-scrollbar,
+    #eventCarousel::-webkit-scrollbar {
+      height: 8px;
+      /* for horizontal scroll (carousel) */
+      width: 8px;
+      /* for vertical scroll (registered panel) */
+    }
+
+    #registeredPanel::-webkit-scrollbar-thumb,
+    #eventCarousel::-webkit-scrollbar-thumb {
+      background-color: rgba(100, 100, 100, 0.25);
+      /* medium gray thumb */
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    #registeredPanel::-webkit-scrollbar-thumb:hover,
+    #eventCarousel::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(100, 100, 100, 0.45);
+      /* darker on hover */
+    }
+
+    #registeredPanel::-webkit-scrollbar-track,
+    #eventCarousel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* =====================
+   Sidebar Active Button Highlight
+   ===================== */
+    .page-link {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease-in-out;
+    }
+
+    /* Default state */
+    .page-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      /* base subtle overlay */
+      transition: all 0.3s ease-in-out;
+      z-index: 1;
+    }
+
+    /* Active highlight state */
+    .page-link.active::after {
+      background: linear-gradient(rgba(255, 209, 0, 0.35),
+          rgba(122, 0, 25, 0.45));
+      box-shadow: 0 0 20px 5px rgba(255, 209, 0, 0.45);
+      border: 2px solid #ffd100;
+    }
+
+    /* Make text pop more on active */
+    .page-link.active span {
+      color: #ffd100 !important;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+
+    @keyframes fade {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-[#fffaf2] via-white to-[#fffaf2] text-slate-800">
+  <!-- HEADER THAT WILL STAY AT THE TOP -->
+  <nav class="w-full sticky top-0 z-30 bg-umMaroon text-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-umGold text-umMaroon font-extrabold rounded px-2 py-1">U of M</div>
+        <div class="text-lg font-semibold tracking-wide">U of M Events</div>
+      </div>
+
+      <div class="flex-1 mx-6">
+        <input id="searchBar" placeholder="Search events, places..."
+          class="w-full rounded-full px-4 py-2 text-slate-800 bg-white/95 shadow focus:outline-none" />
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button class="bg-white text-umMaroon px-3 py-1 rounded hover:bg-white/90">Log in</button>
+        <button class="bg-umGold text-umMaroon px-3 py-1 rounded hover:bg-umGoldDark">Sign up</button>
+
+        <!-- Profile opens the PROFILE page on the right -->
+        <button id="profileBtn" data-target="profile-page"
+          class="page-link w-10 h-10 rounded-full bg-white text-umMaroon flex items-center justify-center shadow">
+          <i class="fa-solid fa-user"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN 12-COLUMN GRID -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div class="grid grid-cols-12 gap-6">
+
+      <!-- PERSISTENT SIDEBAR WILL TAKE UP 3 COLUMNS -->
+      <section class="col-span-12 md:col-span-3 flex flex-col h-full space-y-4">
+        <div class="h-[66vh] flex flex-col space-y-4 overflow-hidden z-10">
+          <!-- Nav Buttons -->
+          <button
+            class="page-link group flex-1 w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition relative"
+            data-target="home-page">
+            <img src="https://appmsmunifyprod.blob.core.windows.net/docs/files/institution/f54b4ec0-7faa-4a03-80dc-e73551af995c.jpeg?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover group-hover:scale-[1.1] transition" />
+            <div class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between">
+              <span class="text-white font-semibold text-lg">Home</span>
+              <span class="bg-umGold text-umMaroon px-2 py-0.5 rounded text-sm font-semibold">Go</span>
+            </div>
+          </button>
+
+          <button
+            class="page-link group flex-1 w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition relative"
+            data-target="social-page">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover group-hover:scale-[1.1] transition" />
+            <div class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between">
+              <span class="text-white font-semibold text-lg">Social</span>
+              <span class="bg-umGold text-umMaroon px-2 py-0.5 rounded text-sm font-semibold">Go</span>
+            </div>
+          </button>
+
+          <button
+            class="page-link group flex-1 w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition relative"
+            data-target="achievements-page">
+            <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover group-hover:scale-[1.1] transition" />
+            <div class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between">
+              <span class="text-white font-semibold text-lg">Achievements</span>
+              <span class="bg-umGold text-umMaroon px-2 py-0.5 rounded text-sm font-semibold">Go</span>
+            </div>
+          </button>
+
+          <button
+            class="page-link group flex-1 w-full rounded-xl overflow-hidden shadow hover:shadow-lg transition relative"
+            data-target="create-page">
+            <img src="https://images.unsplash.com/photo-1485217988980-11786ced9454?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover group-hover:scale-[1.1] transition" />
+            <div class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between">
+              <span class="text-white font-semibold text-lg">Create</span>
+              <span class="bg-umGold text-umMaroon px-2 py-0.5 rounded text-sm font-semibold">Go</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Registered Events (always visible) -->
+        <div class="flex flex-col w-full">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-2xl font-semibold">Registered Events</h2>
+          </div>
+
+          <div id="registeredPanel" class="w-full rounded-xl overflow-y-auto h-[33vh] mb-3 bg-white shadow">
+            <ul id="registeredList" class="gap-4 px-6 py-3 text-sm w-full"></ul>
+            <div id="registeredEmpty" class="text-sm text-slate-500 px-6 pb-3">
+              No events yet. Open a card → “More info” → Register.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT DYNAMIC COLUMN  (FIND YOUR PAGE HERE AND MODIFY)-->
+      <section id="right-panel" class="col-span-12 md:col-span-9 space-y-6">
+        <!-- HOME -->
+        <section id="home-page" class="page-section">
+          <!-- RIGHT: Map + Filters -->
+          <div class="grid grid-cols-12 gap-4">
+            <div class="relative col-span-12 lg:col-span-8 bg-white rounded-xl shadow overflow-hidden">
+              <div id="map" class="absolute inset-0 z-0"></div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-4 bg-white rounded-xl shadow p-4 space-y-3">
+              <h3 class="font-semibold text-lg">Filters</h3>
+              <label class="flex items-center gap-2"><input type="checkbox" class="filter" value="By Faculty"> By
+                Faculty</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="filter" value="Fun"> Fun</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="filter" value="Jobs"> Jobs</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="filter" value="Co-op"> Co-op</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="filter" value="Social">
+                Social</label>
+            </div>
+          </div>
+
+          <!-- What's Happening (Carousel) -->
+          <div class="flex flex-col mt-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-2xl font-semibold">What's Happening on Campus</h2>
+            </div>
+
+            <div class="relative">
+              <button id="prevBtn"
+                class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-black w-10 h-10 rounded-full z-10 shadow flex items-center justify-center">
+                <p>&lt;</p>
+              </button>
+
+              <div id="eventCarousel"
+                class="flex overflow-x-auto overflow-y-hidden gap-2 px-12 scroll-smooth min-h-[200px]">
+                <!-- filled by JS -->
+              </div>
+
+              <button id="nextBtn"
+                class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-black w-10 h-10 rounded-full z-10 shadow flex items-center justify-center">
+                <p>></p>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOCIAL -->
+        <section id="social-page" class="page-section hidden">
+          <div class="bg-white rounded-xl shadow p-6">
+            <p class="text-slate-700">Youssof's ToDo page</p>
+          </div>
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+        <section id="achievements-page" class="page-section hidden">
+          <div class="bg-white rounded-xl shadow p-6">
+            <p class="text-slate-700">Rodrigo todo page</p>
+          </div>
+        </section>
+
+        <!-- CREATE -->
+        <section id="create-page" class="page-section hidden">
+          <div class="bg-white rounded-xl shadow p-6 space-y-3">
+            <p class="text-sm text-slate-500">Will to do page</p>
+          </div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="profile-page" class="page-section hidden">
+          <h1 class="text-2xl font-bold mb-3">Your Profile</h1>
+          <div class="bg-white rounded-xl shadow p-6">
+            <p class="text-slate-700">Vassilly todo page</p>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <!-- Things that dont have to be in the main pages-->
+  <!-- EVENT MODAL (global) -->
+  <div id="eventModal" class="fixed inset-0 z-40 hidden">
+    <!-- dark background -->
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <!-- modal box -->
+    <div class="relative max-w-xl mx-auto mt-24 bg-white rounded-xl shadow-lg overflow-hidden fade-in">
+      <!-- floating close button -->
+      <button id="modalClose" class="absolute top-0 right-2 text-slate-500 hover:text-slate-800 z-50">x</button>
+
+      <div class="flex">
+        <img id="modalImage" class="w-40 h-40 object-cover hidden md:block" alt="Event image">
+
+        <div class="p-5 flex-1">
+          <div>
+            <h3 id="modalTitle" class="text-xl font-semibold"></h3>
+            <div id="modalMeta" class="text-sm text-slate-500 mt-1"></div>
+          </div>
+
+          <p id="modalDesc" class="text-slate-700 text-sm mt-3"></p>
+
+          <div class="mt-5 flex gap-2">
+            <button id="modalRegister"
+              class="bg-umGold text-umMaroon px-4 py-2 rounded font-semibold hover:bg-umGoldDark">Register</button>
+            <button id="modalCenter" class="bg-slate-100 px-4 py-2 rounded hover:bg-slate-200">Center on Map</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOLD TOAST (global) -->
+  <div id="toast"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-umGold text-umMaroon px-4 py-2 rounded-full font-semibold shadow hidden z-50">
+    Registered! See you there 🎉
+  </div>
+
+  <!-- Your main app logic -->
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
