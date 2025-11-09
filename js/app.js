@@ -437,7 +437,113 @@ function showSection(id) {
   // ==================== [ CREATE PAGE ] ====================
   // ========================================================
   // TODO: (Will) Implement event creation form / preview logic
+// ========================================================
+// ==================== [ CREATE PAGE ] ====================
+// ========================================================
+(function initCreatePage() {
+  let createMap;
+  let createMarker;
 
+  function initCreateMap() {
+    createMap = L.map('createMap', {
+      center: UM_CENTER,
+      zoom: 16,
+      minZoom: 15,
+      maxZoom: 18,
+      maxBounds: MAP_BOUNDS
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(createMap);
+
+    // Allow user to click to place marker
+    createMap.on('click', function (e) {
+      const { lat, lng } = e.latlng;
+      if (createMarker) {
+        createMap.removeLayer(createMarker);
+      }
+      createMarker = L.marker([lat, lng]).addTo(createMap);
+      $('#eventLat').val(lat.toFixed(6));
+      $('#eventLng').val(lng.toFixed(6));
+    });
+  }
+
+  // Initialize map once the section becomes visible
+  $(document).on('click', '[data-target="create-page"]', function () {
+    setTimeout(() => {
+      if (!createMap) initCreateMap();
+      setTimeout(() => createMap.invalidateSize(), 100);
+    }, 200);
+  });
+
+  // Collect form data
+  function collectEventData() {
+    return {
+      name: $('#eventName').val(),
+      date: $('#eventDate').val(),
+      time: $('#eventTime').val(),
+      place: $('#eventPlace').val(),
+      category: $('#eventCategory').val(),
+      price: Number($('#eventPrice').val()),
+      image: $('#eventImage').val(),
+      description: $('#eventDesc').val(),
+      lat: parseFloat($('#eventLat').val()),
+      lng: parseFloat($('#eventLng').val()),
+      type: 'event',
+    };
+  }
+
+  // Render card preview (same as carousel)
+  function renderPreview(ev) {
+    if (!ev.name) {
+      $('#previewCard').html('<p class="italic text-slate-500">Enter event info and click Preview.</p>');
+      return;
+    }
+    const img = ev.image || PLACEHOLDER_IMG;
+    $('#previewCard').html(`
+      <div class="min-w-[260px] w-full h-[33vh] bg-white rounded-xl shadow overflow-hidden flex flex-col">
+        <img src="${img}" class="w-full h-[50%] object-cover rounded-t-xl" alt="">
+        <div class="p-3 flex flex-col justify-between flex-1 overflow-hidden">
+          <div class="flex items-start justify-between gap-2">
+            <div class="overflow-hidden text-left">
+              <div class="font-semibold text-slate-800 text-base truncate">${ev.name}</div>
+              <div class="text-sm text-slate-500 leading-tight">${ev.date} • ${ev.time} • ${ev.place}</div>
+            </div>
+            <div class="text-umMaroon font-bold text-sm">$${ev.price}</div>
+          </div>
+          <p class="text-slate-600 text-sm mt-2 line-clamp-2">${ev.description}</p>
+        </div>
+      </div>
+    `);
+  }
+
+  // Preview button
+  $('#previewEventBtn').on('click', function () {
+    const data = collectEventData();
+    renderPreview(data);
+  });
+
+  // Submit handler
+  $('#createEventForm').on('submit', function (e) {
+    e.preventDefault();
+    const data = collectEventData();
+
+    if (!data.lat || !data.lng) {
+      alert('Please click on the map to set a location.');
+      return;
+    }
+
+    data.id = Date.now(); // unique ID
+    allEvents.push(data);
+    renderAll(allEvents);
+    showToast('Event Created!');
+    $('#createEventForm')[0].reset();
+    $('#previewCard').html('<p class="italic text-slate-500">Event added successfully!</p>');
+    if (createMarker) {
+      createMap.removeLayer(createMarker);
+      createMarker = null;
+    }
+  });
+})();
 
   // ========================================================
   // =================== [ PROFILE PAGE ] ====================
