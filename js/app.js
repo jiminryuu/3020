@@ -423,9 +423,73 @@ function showSection(id) {
   // ========================================================
   // ==================== [ SOCIAL PAGE ] ====================
   // ========================================================
-  // TODO: (Youssof) Implement social features here
-  // Placeholder for future event feeds, post creation, etc.
 
+  // Static data for the little popularity chart
+  // You can tweak the numbers/order later if you want
+  const POPULAR_EVENTS_DATA = {
+    everyone: [
+      { key: 'runner',   name: '5k Run',        subtitle: 'Running Club',   count: 687 },
+      { key: 'agri',     name: 'Agri Social',   subtitle: 'ASA',            count: 553 },
+      { key: 'robotics', name: 'Robotics Meet',subtitle: 'UM Robotics',     count: 221 },
+      { key: 'ieee',     name: 'IEEE Social',   subtitle: 'UMIEEE',         count: 97  },
+    ],
+    friends: [
+      // smaller numbers + different order for "friends only"
+      { key: 'robotics', name: 'Robotics Meet',subtitle: 'UM Robotics',     count: 42 },
+      { key: 'agri',     name: 'Agri Social',   subtitle: 'ASA',            count: 31 },
+      { key: 'runner',   name: '5k Run',        subtitle: 'Running Club',   count: 18 },
+      { key: 'ieee',     name: 'IEEE Social',   subtitle: 'UMIEEE',         count: 12 },
+    ]
+  };
+
+  function renderPopularEvents(mode = 'everyone') {
+    const list = (POPULAR_EVENTS_DATA[mode] || POPULAR_EVENTS_DATA.everyone).slice();
+    const $list = $('#popularEventsList');
+    if (!$list.length) return;
+  
+    const max = list.reduce((m, e) => Math.max(m, e.count), 1);
+    $list.empty();
+  
+    // sort by count so order changes when numbers change
+    list.sort((a, b) => b.count - a.count).forEach((ev) => {
+      // bars now between ~55% and ~95% of the row
+      const width = 55 + (ev.count / max) * 40;
+  
+      const row = `
+        <div class="group bg-slate-50/70 hover:bg-slate-100 transition rounded-lg px-3 py-2 space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <div class="font-semibold text-slate-800 truncate pr-4">
+              ${ev.name}
+            </div>
+            <div class="text-[11px] text-slate-500 truncate text-right">
+              ${ev.subtitle}
+            </div>
+          </div>
+  
+          <div class="flex items-center gap-2">
+            <div class="flex-1 h-3.5 rounded-full bg-white/80 overflow-hidden">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-umGold to-umGoldDark group-hover:opacity-90 transition-all"
+                style="width:${width}%">
+              </div>
+            </div>
+            <div class="w-10 text-right text-xs font-semibold text-slate-600 group-hover:text-slate-900">
+              ${ev.count}
+            </div>
+          </div>
+        </div>
+      `;
+      $list.append(row);
+    });
+  }
+
+  // initial render (everyone)
+  renderPopularEvents('everyone');
+
+  // change handler for the dropdown
+  $(document).on('change', '#popularFilter', function () {
+    renderPopularEvents(this.value);
+  });
 
   // ========================================================
   // ================= [ ACHIEVEMENTS PAGE ] =================
