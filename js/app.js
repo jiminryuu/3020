@@ -182,6 +182,7 @@ $(function () {
   map.whenReady(() => {
     map.invalidateSize();
     addMarkers(allEvents);
+    renderLegend();
   });
 
   renderAll(allEvents);
@@ -197,21 +198,21 @@ $(function () {
     $('.page-link[data-target="home-page"]').addClass('ring-2 ring-umGold');
   }
 
-function showSection(id) {
-  $('.page-section').addClass('hidden');
-  $('#' + id).removeClass('hidden');
+  function showSection(id) {
+    $('.page-section').addClass('hidden');
+    $('#' + id).removeClass('hidden');
 
-  // Reset all button states
-  $('.page-link').removeClass('active ring-2 ring-umGold scale-[1.03]');
+    // Reset all button states
+    $('.page-link').removeClass('active ring-2 ring-umGold scale-[1.03]');
 
-  // Highlight the current one
-  const $btn = $(`.page-link[data-target="${id}"]`);
-  $btn.addClass('active ring-2 ring-umGold scale-[1.03]');
+    // Highlight the current one
+    const $btn = $(`.page-link[data-target="${id}"]`);
+    $btn.addClass('active ring-2 ring-umGold scale-[1.03]');
 
-  if (id === 'home-page' && map) {
-    setTimeout(() => map.invalidateSize(), 100);
+    if (id === 'home-page' && map) {
+      setTimeout(() => map.invalidateSize(), 100);
+    }
   }
-}
 
 
 
@@ -229,7 +230,7 @@ function showSection(id) {
       maxBounds: MAP_BOUNDS
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(map);
+    L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {}).addTo(map);
 
     // Click to log coordinates (for debugging)
     map.on('click', (e) => {
@@ -265,7 +266,7 @@ function showSection(id) {
         <div style="min-width:220px">
           <div style="font-weight:600;margin-bottom:4px">${ev.name}</div>
           <div style="font-size:13px;color:#64748b">
-            ${ev.date}${ev.time ? ' • ' + ev.time : ''}${ev.place ? ' • ' + ev.place : ''}
+            ${ev.date ? ev.date : ''}${ev.time ? ' • ' + ev.time : ''}${ev.place ? ' • ' + ev.place : ''}
           </div>
           <div style="margin-top:6px;font-size:13px;color:#334155">${ev.description || ''}</div>
           ${ev.type === 'event'
@@ -286,6 +287,39 @@ function showSection(id) {
       markerById[ev.id] = marker;
     });
   }
+  function renderLegend() {
+    const $box = $('#legendBox').empty();
+
+    // Marker icons matching Leaflet defaults
+    const eventIcon = "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png";
+    const landmarkIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png";
+
+    // Basic marker legend
+    const legendItems = [
+      { label: "Event", icon: eventIcon },
+      { label: "Landmark", icon: landmarkIcon }
+    ];
+
+    // Render all items
+    legendItems.forEach(item => {
+      if (item.icon) {
+        $box.append(`
+        <div class="flex items-center gap-2">
+          <img src="${item.icon}" class="w-4 h-6" />
+          <span>${item.label}</span>
+        </div>
+      `);
+      } else if (item.color) {
+        $box.append(`
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full" style="background:${item.color}"></div>
+          <span>${item.label}</span>
+        </div>
+      `);
+      }
+    });
+  }
+
   // ---------- Map ----------
 
 
@@ -437,69 +471,69 @@ function showSection(id) {
   // ==================== [ CREATE PAGE ] ====================
   // ========================================================
   // TODO: (Will) Implement event creation form / preview logic
-// ========================================================
-// ==================== [ CREATE PAGE ] ====================
-// ========================================================
-(function initCreatePage() {
-  let createMap;
-  let createMarker;
+  // ========================================================
+  // ==================== [ CREATE PAGE ] ====================
+  // ========================================================
+  (function initCreatePage() {
+    let createMap;
+    let createMarker;
 
-  function initCreateMap() {
-    createMap = L.map('createMap', {
-      center: UM_CENTER,
-      zoom: 16,
-      minZoom: 15,
-      maxZoom: 18,
-      maxBounds: MAP_BOUNDS
-    });
+    function initCreateMap() {
+      createMap = L.map('createMap', {
+        center: UM_CENTER,
+        zoom: 16,
+        minZoom: 15,
+        maxZoom: 18,
+        maxBounds: MAP_BOUNDS
+      });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(createMap);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(createMap);
 
-    // Allow user to click to place marker
-    createMap.on('click', function (e) {
-      const { lat, lng } = e.latlng;
-      if (createMarker) {
-        createMap.removeLayer(createMarker);
-      }
-      createMarker = L.marker([lat, lng]).addTo(createMap);
-      $('#eventLat').val(lat.toFixed(6));
-      $('#eventLng').val(lng.toFixed(6));
-    });
-  }
-
-  // Initialize map once the section becomes visible
-  $(document).on('click', '[data-target="create-page"]', function () {
-    setTimeout(() => {
-      if (!createMap) initCreateMap();
-      setTimeout(() => createMap.invalidateSize(), 100);
-    }, 200);
-  });
-
-  // Collect form data
-  function collectEventData() {
-    return {
-      name: $('#eventName').val(),
-      date: $('#eventDate').val(),
-      time: $('#eventTime').val(),
-      place: $('#eventPlace').val(),
-      category: $('#eventCategory').val(),
-      price: Number($('#eventPrice').val()),
-      image: $('#eventImage').val(),
-      description: $('#eventDesc').val(),
-      lat: parseFloat($('#eventLat').val()),
-      lng: parseFloat($('#eventLng').val()),
-      type: 'event',
-    };
-  }
-
-  // Render card preview (same as carousel)
-  function renderPreview(ev) {
-    if (!ev.name) {
-      $('#previewCard').html('<p class="italic text-slate-500">Enter event info and click Preview.</p>');
-      return;
+      // Allow user to click to place marker
+      createMap.on('click', function (e) {
+        const { lat, lng } = e.latlng;
+        if (createMarker) {
+          createMap.removeLayer(createMarker);
+        }
+        createMarker = L.marker([lat, lng]).addTo(createMap);
+        $('#eventLat').val(lat.toFixed(6));
+        $('#eventLng').val(lng.toFixed(6));
+      });
     }
-    const img = ev.image || PLACEHOLDER_IMG;
-    $('#previewCard').html(`
+
+    // Initialize map once the section becomes visible
+    $(document).on('click', '[data-target="create-page"]', function () {
+      setTimeout(() => {
+        if (!createMap) initCreateMap();
+        setTimeout(() => createMap.invalidateSize(), 100);
+      }, 200);
+    });
+
+    // Collect form data
+    function collectEventData() {
+      return {
+        name: $('#eventName').val(),
+        date: $('#eventDate').val(),
+        time: $('#eventTime').val(),
+        place: $('#eventPlace').val(),
+        category: $('#eventCategory').val(),
+        price: Number($('#eventPrice').val()),
+        image: $('#eventImage').val(),
+        description: $('#eventDesc').val(),
+        lat: parseFloat($('#eventLat').val()),
+        lng: parseFloat($('#eventLng').val()),
+        type: 'event',
+      };
+    }
+
+    // Render card preview (same as carousel)
+    function renderPreview(ev) {
+      if (!ev.name) {
+        $('#previewCard').html('<p class="italic text-slate-500">Enter event info and click Preview.</p>');
+        return;
+      }
+      const img = ev.image || PLACEHOLDER_IMG;
+      $('#previewCard').html(`
       <div class="min-w-[260px] w-full h-[33vh] bg-white rounded-xl shadow overflow-hidden flex flex-col">
         <img src="${img}" class="w-full h-[50%] object-cover rounded-t-xl" alt="">
         <div class="p-3 flex flex-col justify-between flex-1 overflow-hidden">
@@ -514,36 +548,36 @@ function showSection(id) {
         </div>
       </div>
     `);
-  }
-
-  // Preview button
-  $('#previewEventBtn').on('click', function () {
-    const data = collectEventData();
-    renderPreview(data);
-  });
-
-  // Submit handler
-  $('#createEventForm').on('submit', function (e) {
-    e.preventDefault();
-    const data = collectEventData();
-
-    if (!data.lat || !data.lng) {
-      alert('Please click on the map to set a location.');
-      return;
     }
 
-    data.id = Date.now(); // unique ID
-    allEvents.push(data);
-    renderAll(allEvents);
-    showToast('Event Created!');
-    $('#createEventForm')[0].reset();
-    $('#previewCard').html('<p class="italic text-slate-500">Event added successfully!</p>');
-    if (createMarker) {
-      createMap.removeLayer(createMarker);
-      createMarker = null;
-    }
-  });
-})();
+    // Preview button
+    $('#previewEventBtn').on('click', function () {
+      const data = collectEventData();
+      renderPreview(data);
+    });
+
+    // Submit handler
+    $('#createEventForm').on('submit', function (e) {
+      e.preventDefault();
+      const data = collectEventData();
+
+      if (!data.lat || !data.lng) {
+        alert('Please click on the map to set a location.');
+        return;
+      }
+
+      data.id = Date.now(); // unique ID
+      allEvents.push(data);
+      renderAll(allEvents);
+      showToast('Event Created!');
+      $('#createEventForm')[0].reset();
+      $('#previewCard').html('<p class="italic text-slate-500">Event added successfully!</p>');
+      if (createMarker) {
+        createMap.removeLayer(createMarker);
+        createMarker = null;
+      }
+    });
+  })();
 
   // ========================================================
   // =================== [ PROFILE PAGE ] ====================
