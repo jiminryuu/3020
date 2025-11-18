@@ -296,7 +296,7 @@
         <!-- ACHIEVEMENTS -->
         <section id="achievements-page" class="page-section hidden">
           <div class="bg-white rounded-xl shadow p-6 space-y-6">
-            <!-- PAGE TITLE (same style as Create New Event) -->
+            <!-- PAGE TITLE -->
             <h2 class="text-2xl font-bold text-umMaroon mb-2">Your Rewards</h2>
 
             <!-- PROFILE + LEVEL -->
@@ -321,7 +321,6 @@
                   <span class="text-umMaroon">1320 XP</span>
                 </div>
                 <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
-                  <!-- ~66% -->
                   <div class="h-full w-2/3 bg-gradient-to-r from-umGold to-umMaroon"></div>
                 </div>
                 <p class="text-xs text-slate-500">
@@ -332,7 +331,8 @@
 
             <!-- SHORT INTRO -->
             <p class="text-sm text-slate-500">
-              Each card below is an achievement. Read the description to see how to earn it and watch your progress bar fill up.
+              Each card below is an achievement. Read the description to see how to earn it and watch your progress bar
+              fill up.
             </p>
 
             <!-- REWARDS GRID -->
@@ -359,12 +359,18 @@
                   </span>
                 </div>
 
-                <!-- Progress bar (no tiny labels) -->
+                <!-- Progress bar -->
                 <div class="mt-1 space-y-1">
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-[85%] bg-emerald-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">17 / 20</p>
+                  <div class="flex items-center justify-between text-[11px] text-slate-500">
+                    <span>17 / 20 events</span>
+                    <button
+                      class="reward-info-btn text-[11px] text-umMaroon font-semibold hover:underline">
+                      More details
+                    </button>
+                  </div>
                 </div>
               </article>
 
@@ -394,7 +400,7 @@
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-full bg-emerald-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">11 / 11</p>
+                  <p class="text-[11px] text-slate-500 text-right">11 / 11 mornings</p>
                 </div>
               </article>
 
@@ -424,7 +430,7 @@
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-[40%] bg-indigo-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">4 / 10</p>
+                  <p class="text-[11px] text-slate-500 text-right">4 / 10 nights</p>
                 </div>
               </article>
 
@@ -454,7 +460,7 @@
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-[20%] bg-amber-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">1 / 5</p>
+                  <p class="text-[11px] text-slate-500 text-right">1 / 5 events hosted</p>
                 </div>
               </article>
 
@@ -484,7 +490,7 @@
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-[0%] bg-pink-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">0 / 5</p>
+                  <p class="text-[11px] text-slate-500 text-right">0 / 5 friends</p>
                 </div>
               </article>
 
@@ -514,12 +520,78 @@
                   <div class="h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div class="h-full w-full bg-teal-400"></div>
                   </div>
-                  <p class="text-[11px] text-slate-500 text-right">3 / 3</p>
+                  <p class="text-[11px] text-slate-500 text-right">3 / 3 career events</p>
                 </div>
               </article>
             </div>
+
+            <!-- FRIENDS LEADERBOARD -->
+            <div class="mt-4 pt-4 border-t">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                  <span class="text-umMaroon"><i class="fa-solid fa-ranking-star"></i></span>
+                  Friends Leaderboard
+                </h3>
+                <p class="text-xs text-slate-500">See how your friends are doing this week.</p>
+              </div>
+
+              <ul class="space-y-2">
+                <li
+                  class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-700">
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="w-6 h-6 rounded-full bg-umGold text-umMaroon flex items-center justify-center text-xs font-bold">1</span>
+                    <div>
+                      <p class="font-semibold">Rodrigo</p>
+                      <p class="text-xs text-slate-500">Campus Explorer • Level 8</p>
+                    </div>
+                  </div>
+                  <span class="text-xs text-slate-500">24 events</span>
+                </li>
+
+                <li
+                  class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-700">
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">2</span>
+                    <div>
+                      <p class="font-semibold">Will</p>
+                      <p class="text-xs text-slate-500">Event Architect • Level 6</p>
+                    </div>
+                  </div>
+                  <span class="text-xs text-slate-500">18 events</span>
+                </li>
+
+                <li
+                  class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-700">
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">3</span>
+                    <div>
+                      <p class="font-semibold">Vassily</p>
+                      <p class="text-xs text-slate-500">Social Starter • Level 5</p>
+                    </div>
+                  </div>
+                  <span class="text-xs text-slate-500">13 events</span>
+                </li>
+
+                <li
+                  class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 text-sm text-slate-700">
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">4</span>
+                    <div>
+                      <p class="font-semibold">Jamal</p>
+                      <p class="text-xs text-slate-500">Night Owl • Level 4</p>
+                    </div>
+                  </div>
+                  <span class="text-xs text-slate-500">9 events</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
+
 
         <!-- CREATE -->
         <section id="create-page" class="page-section hidden">
