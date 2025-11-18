@@ -134,6 +134,119 @@ $(function () {
       image: "https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1200&auto=format&fit=crop",
       description: "Annual gallery featuring multidisciplinary student work."
     },
+    // ---- MORE EVENTS WITH OFFSET COORDS ----
+    {
+      id: 9,
+      type: "event",
+      name: "Late-Night Study Jam",
+      date: "Dec 14, 2025",
+      time: "7:00 PM – 11:00 PM",
+      place: "Dafoe Library – Main Floor",
+      category: "Study",
+      price: 0,
+      lat: 49.8102931969276,   
+      lng: -97.13194199851485, 
+      image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
+      description: "Coffee, snacks, quiet study zones, and peer supports for finals week."
+    },
+    {
+      id: 11,
+      type: "event",
+      name: "Law Faculty Mixer",
+      date: "Jan 10, 2026",
+      time: "4:00 PM – 6:00 PM",
+      place: "Robson Hall Atrium",
+      category: "By Faculty",
+      price: 0,
+      lat: 49.811767633934465,   
+      lng: -97.13067261752954,  
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+      description: "Meet law faculty, network with upper-years, and learn about moot programs."
+    },
+    {
+      id: 12,
+      type: "event",
+      name: "St. John’s College Holiday Dinner",
+      date: "Dec 18, 2025",
+      time: "6:00 PM – 9:00 PM",
+      place: "St. John’s College Dining Hall",
+      category: "Social",
+      price: 15,
+      lat: 49.81070405193883,    // +0.00020 north
+      lng: -97.13650326517274,   // +0.00030 east
+      image: "https://images.unsplash.com/photo-1543353071-873f17a7a088?q=80&w=1200&auto=format&fit=crop",
+      description: "Festive dinner, raffle prizes, and a photo booth."
+    },
+    {
+      id: 13,
+      type: "event",
+      name: "Campus Nature Walk",
+      date: "Jan 5, 2026",
+      time: "2:00 PM – 3:30 PM",
+      place: "Red River Passage",
+      category: "Fun",
+      price: 0,
+      lat: 49.80638511205691,    
+      lng: -97.1344229473885,    
+      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop",
+      description: "Guided nature walk exploring riverside trails and campus wildlife."
+    },
+    {
+      id: 14,
+      type: "event",
+      name: "Science Lab Safety Workshop",
+      date: "Jan 12, 2026",
+      time: "1:00 PM – 3:00 PM",
+      place: "Buller Building – Room 316",
+      category: "Academic",
+      price: 0,
+      lat: 49.81068005596369,   // +0.00020 north
+      lng: -97.1331811892718,   // +0.00030 east
+      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?q=80&w=1200&auto=format&fit=crop",
+      description: "Mandatory training for new lab students and research assistants."
+    },
+    {
+      id: 16,
+      type: "event",
+      name: "Education Faculty Book Swap",
+      date: "Jan 22, 2026",
+      time: "12:00 PM – 3:00 PM",
+      place: "Education Building Lobby",
+      category: "Fun",
+      price: 0,
+      lat: 49.80855924544929,    // +0.00030 north
+      lng: -97.1366558846671,    // +0.00030 east
+      image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+      description: "Swap textbooks, teaching resources, and classroom materials."
+    },
+    {
+      id: 17,
+      type: "event",
+      name: "UMSU Winter Kickoff Concert",
+      date: "Jan 25, 2026",
+      time: "7:00 PM – 11:00 PM",
+      place: "University Centre – Main Stage",
+      category: "Social",
+      price: 20,
+      lat: 49.80964798942664,    // +0.00030 north
+      lng: -97.13487313796218,   // +0.00030 east
+      image: "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200&auto=format&fit=crop",
+      description: "Live bands, student DJs, and food stalls to kick off the semester."
+    },
+    {
+      id: 18,
+      type: "event",
+      name: "Bison Athletics Fan Night",
+      date: "Jan 29, 2026",
+      time: "5:00 PM – 9:00 PM",
+      place: "Investors Group Athletic Centre",
+      category: "Athletics",
+      price: 5,
+      lat: 49.809370962072546,   // +0.00030 north
+      lng: -97.13939121295969,   // +0.00030 east
+      image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?q=80&w=1200&auto=format&fit=crop",
+      description: "Cheer on the Bisons with giveaways, snacks, and halftime competitions."
+    },
 
     // ---- LANDMARKS ----
     {
@@ -155,7 +268,265 @@ $(function () {
       lat: 49.80853069354384,
       lng: -97.13386318990044,
       description: "Student union and event hub."
+    },
+    // ---- LANDMARKS (FORT GARRY CAMPUS) ----
+    {
+      id: 202, type: "landmark",
+      name: "Parker Building",
+      place: "Parker Building",
+      category: "Landmark",
+      lat: "49.81129414840812", lng: "-97.13458337437977",
+      description: "Physics and astronomy facilities."
+    },
+    {
+      id: 203, type: "landmark",
+      name: "Allen Physics Building",
+      place: "Allen Physics Building",
+      category: "Landmark",
+      lat: "49.810694482530835", lng: "-97.13462933886967",
+      description: "Physics research and teaching spaces."
+    },
+    {
+      id: 204, type: "landmark",
+      name: "Biological Sciences Building",
+      place: "Biological Sciences Building",
+      category: "Landmark",
+      lat: "49.81020318554697", lng: "-97.13478394513517",
+      description: "Biology teaching and research building."
+    },
+    {
+      id: 205, type: "landmark",
+      name: "Buller Biological Building",
+      place: "Buller Building",
+      category: "Landmark",
+      lat: "49.81048005596369", lng: "-97.1334811892718",
+      description: "Legacy biological sciences facility."
+    },
+    {
+      id: 206, type: "landmark",
+      name: "Machray Hall",
+      place: "Machray Hall",
+      category: "Landmark",
+      lat: "49.81126226209069", lng: "-97.13324613971542",
+      description: "Large academic building for multiple departments."
+    },
+    {
+      id: 207, type: "landmark",
+      name: "Duff Roblin Building",
+      place: "Duff Roblin Building",
+      category: "Landmark",
+      lat: "49.811092681889036", lng: "-97.13231330218365",
+      description: "Science and research building."
+    },
+    {
+      id: 208, type: "landmark",
+      name: "Human Ecology Building",
+      place: "Human Ecology Building",
+      category: "Landmark",
+      lat: "49.81080889328371", lng: "-97.1320238008807",
+      description: "Human ecology programs and research."
+    },
+    {
+      id: 210, type: "landmark",
+      name: "Elizabeth Dafoe Library",
+      place: "Dafoe Library",
+      category: "Landmark",
+      lat: "49.81027551547644", lng: "-97.13165668039157",
+      description: "Primary academic library at Fort Garry campus."
+    },
+    {
+      id: 211, type: "landmark",
+      name: "Fletcher Argue Building",
+      place: "Fletcher Argue",
+      category: "Landmark",
+      lat: "49.80972177071916", lng: "-97.1312706786543",
+      description: "Arts and humanities academic building."
+    },
+    {
+      id: 212, type: "landmark",
+      name: "Tier Building",
+      place: "Tier Building",
+      category: "Landmark",
+      lat: "49.80920955117838", lng: "-97.13094901053992",
+      description: "Large lecture theatre complex."
+    },
+    {
+      id: 213, type: "landmark",
+      name: "Isbister Building",
+      place: "Isbister Building",
+      category: "Landmark",
+      lat: "49.809382598926824", lng: "-97.13042361928638",
+      description: "Classrooms and offices for arts faculty."
+    },
+    {
+      id: 215, type: "landmark",
+      name: "University Centre",
+      place: "University Centre",
+      category: "Landmark",
+      lat: "49.80934798942664", lng: "-97.13457313796218",
+      description: "Campus hub with food, study space, and UMSU."
+    },
+
+    // Region 2 — North Campus (Colleges Zone)
+    {
+      id: 217, type: "landmark",
+      name: "Robson Hall",
+      place: "Robson Hall",
+      category: "Landmark",
+      lat: "49.81191594713587", lng: "-97.13050939745023",
+      description: "Faculty of Law."
+    },
+    {
+      id: 218, type: "landmark",
+      name: "Chancellor’s Hall",
+      place: "Chancellor’s Hall",
+      category: "Landmark",
+      lat: "49.81159075247775", lng: "-97.13296469234089",
+      description: "Graduate student residence and offices."
+    },
+    {
+      id: 219, type: "landmark",
+      name: "University College",
+      place: "University College",
+      category: "Landmark",
+      lat: "49.81139002618991", lng: "-97.13137779630983",
+      description: "College with residences and study spaces."
+    },
+    {
+      id: 221, type: "landmark",
+      name: "St. Paul’s College",
+      place: "St. Paul’s College",
+      category: "Landmark",
+      lat: "49.810026449716446", lng: "-97.13750021275398",
+      description: "Catholic college with classrooms and dining."
+    },
+    {
+      id: 222, type: "landmark",
+      name: "St. John’s College",
+      place: "St. John’s College",
+      category: "Landmark",
+      lat: "49.81050405193883", lng: "-97.13680326517274",
+      description: "Anglican college with residences, classrooms."
+    },
+    {
+      id: 223, type: "landmark",
+      name: "St. Andrew’s College",
+      place: "St. Andrew’s College",
+      category: "Landmark",
+      lat: "49.81090544199807", lng: "-97.14079131949572",
+      description: "Ukrainian theological college."
+    },
+
+    // Region 3 — Agriculture & Science South Zone
+    {
+      id: 224, type: "landmark",
+      name: "Agriculture Building",
+      place: "Agriculture Building",
+      category: "Landmark",
+      lat: "", lng: "",
+      description: "Faculty of Agricultural & Food Sciences."
+    },
+    {
+      id: 225, type: "landmark",
+      name: "Agricultural Engineering Building",
+      place: "Agricultural Engineering Building",
+      category: "Landmark",
+      lat: "", lng: "",
+      description: "Agriculture engineering facilities."
+    },
+    {
+      id: 226, type: "landmark",
+      name: "Dairy Science Building",
+      place: "Dairy Science Building",
+      category: "Landmark",
+      lat: "49.80730603467831", lng: "-97.13391834411799",
+      description: "Dairy science research centre."
+    },
+    {
+      id: 227, type: "landmark",
+      name: "Animal Science / Entomology Building",
+      place: "Animal Science / Entomology Building",
+      category: "Landmark",
+      lat: "49.805942343148914", lng: "-97.13733874840113",
+      description: "Animal science and entomology research labs."
+    },
+    {
+      id: 228, type: "landmark",
+      name: "Ellis Building",
+      place: "Ellis Building",
+      category: "Landmark",
+      lat: "49.8048416707005", lng: "-97.13658818946753",
+      description: "Engineering labs and facilities."
+    },
+    {
+      id: 231, type: "landmark",
+      name: "Central Energy Plant",
+      place: "Central Energy Plant",
+      category: "Landmark",
+      lat: "", lng: "",
+      description: "Campus heating and utilities."
+    },
+    {
+      id: 232, type: "landmark",
+      name: "Physical Plant / Energy Management",
+      place: "Physical Plant",
+      category: "Landmark",
+      lat: "49.8066761108781", lng: "-97.13253517122608",
+      description: "Campus maintenance and operations."
+    },
+
+    // Region 4 — Athletics Zone
+    {
+      id: 235, type: "landmark",
+      name: "Investors Group Athletic Centre",
+      place: "IGAC",
+      category: "Landmark",
+      lat: "49.809070962072546", lng: "-97.13969121295969",
+      description: "Indoor athletic facility."
+    },
+    {
+      id: 236, type: "landmark",
+      name: "James Daly Fieldhouse",
+      place: "James Daly Fieldhouse",
+      category: "Landmark",
+      lat: "49.80828185423737", lng: "-97.13917654397662",
+      description: "Indoor track and sports training."
+    },
+    {
+      id: 237, type: "landmark",
+      name: "Joyce Fromson Pool",
+      place: "Joyce Fromson Pool",
+      category: "Landmark",
+      lat: "49.80708432391311", lng: "-97.13791131605998",
+      description: "Campus swimming facility."
+    },
+
+    // Region 5 — Education / Nursing Zone
+    {
+      id: 239, type: "landmark",
+      name: "Helen Glass Centre for Nursing",
+      place: "Helen Glass Centre",
+      category: "Landmark",
+      lat: "49.80905019624169", lng: "-97.13568108380012",
+      description: "Nursing faculties and labs."
+    },
+    {
+      id: 240, type: "landmark",
+      name: "Education Building",
+      place: "Education Building",
+      category: "Landmark",
+      lat: "49.80878716161319", lng: "-97.1365066986271",
+      description: "Faculty of Education."
+    },
+    {
+      id: 241, type: "landmark",
+      name: "Agriculture Building",
+      place: "Agriculture Building",
+      category: "Landmark",
+      lat: "49.806752071845814", lng: "-97.13512070910156",
+      description: "Faculty of Agriculture."
     }
+
   ];
 
   // ========================================================
@@ -402,11 +773,11 @@ $(function () {
   function applyFilters() {
     // If not on Home, switch to Home first, then focus map
     if (!$('#home-page').is(':visible')) {
-        showSection('home-page');
+      showSection('home-page');
 
-        // Small delay so the map DOM is visible before centering
-        setTimeout(250);
-    }  
+      // Small delay so the map DOM is visible before centering
+      setTimeout(250);
+    }
     const { cats, q } = getActiveFilters();
     let list = allEvents.slice();
 
