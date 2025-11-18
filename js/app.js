@@ -400,6 +400,13 @@ $(function () {
   }
 
   function applyFilters() {
+    // If not on Home, switch to Home first, then focus map
+    if (!$('#home-page').is(':visible')) {
+        showSection('home-page');
+
+        // Small delay so the map DOM is visible before centering
+        setTimeout(250);
+    }  
     const { cats, q } = getActiveFilters();
     let list = allEvents.slice();
 
