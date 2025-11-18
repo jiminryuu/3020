@@ -20,7 +20,7 @@ $(function () {
   // ========================================================
   // ================== [ GLOBAL DATA STATE ] ================
   // ========================================================
-  const allEvents = [
+  let allEvents = [
     // ---- EVENTS ----
     {
       id: 1,
@@ -144,8 +144,8 @@ $(function () {
       place: "Dafoe Library – Main Floor",
       category: "Study",
       price: 0,
-      lat: 49.8102931969276,   
-      lng: -97.13194199851485, 
+      lat: 49.8102931969276,
+      lng: -97.13194199851485,
       image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
       description: "Coffee, snacks, quiet study zones, and peer supports for finals week."
     },
@@ -158,8 +158,8 @@ $(function () {
       place: "Robson Hall Atrium",
       category: "By Faculty",
       price: 0,
-      lat: 49.811767633934465,   
-      lng: -97.13067261752954,  
+      lat: 49.811767633934465,
+      lng: -97.13067261752954,
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
       description: "Meet law faculty, network with upper-years, and learn about moot programs."
     },
@@ -186,8 +186,8 @@ $(function () {
       place: "Red River Passage",
       category: "Fun",
       price: 0,
-      lat: 49.80638511205691,    
-      lng: -97.1344229473885,    
+      lat: 49.80638511205691,
+      lng: -97.1344229473885,
       image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop",
       description: "Guided nature walk exploring riverside trails and campus wildlife."
     },
@@ -529,6 +529,7 @@ $(function () {
 
   ];
 
+  allEvents = sortEventsByDate(allEvents); //gotta sort em once
   // ========================================================
   // ================= [ GLOBAL STATE HANDLERS ] =============
   // ========================================================
@@ -542,6 +543,31 @@ $(function () {
     localStorage.setItem('registeredEventIds', JSON.stringify([...registered]));
   }
   ////
+
+  // ========================================================
+  // ====================== [ Sort Events ] ======================
+  // ========================================================
+function sortEventsByDate(events) {
+  return events.slice().sort((a, b) => {
+    // Ignore landmarks
+    if (a.type !== "event" && b.type !== "event") return 0;
+    if (a.type !== "event") return 1;
+    if (b.type !== "event") return -1;
+
+    // Extract ONLY the start time
+    // Handles: "-", "–", "—"
+    const extractStartTime = (timeStr) => {
+      if (!timeStr) return "12:00 AM"; // fallback so date still parses
+      return timeStr.split(/[-–—]/)[0].trim();
+    };
+
+    // Build full datetime strings that JS CAN parse
+    const dateA = new Date(`${a.date} ${extractStartTime(a.time)}`);
+    const dateB = new Date(`${b.date} ${extractStartTime(b.time)}`);
+
+    return dateA - dateB;
+  });
+}
 
 
   // ========================================================
@@ -696,8 +722,10 @@ $(function () {
 
   // ---------- Rendering ----------
   function renderAll(list) {
-    renderCarousel(list.filter((e) => e.type === 'event'));
-    addMarkers(list);
+    const sorted = sortEventsByDate(list);
+
+    renderCarousel(sorted.filter((e) => e.type === "event"));
+    addMarkers(sorted);
   }
 
   function renderCarousel(events) {
@@ -946,6 +974,7 @@ $(function () {
 
       data.id = Date.now(); // unique ID
       allEvents.push(data);
+      allEvents = sortEventsByDate(allEvents);
       renderAll(allEvents);
       showToast('Event Created!');
       $('#createEventForm')[0].reset();
