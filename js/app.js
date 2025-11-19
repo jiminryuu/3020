@@ -893,7 +893,7 @@ function sortEventsByDate(events) {
         maxBounds: MAP_BOUNDS
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(createMap);
+      L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {}).addTo(createMap);
 
       // Allow user to click to place marker
       createMap.on('click', function (e) {
