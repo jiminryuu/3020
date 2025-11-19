@@ -49,13 +49,28 @@
       z-index: 10 !important;
     }
 
-    /* UI always above the map */
+    /* Layering order:
+      1) Modals / toast on very top
+      2) Header above normal content
+      3) Normal content (friends widgets, right messages pane)
+    */
+
+    /* Popups + toast ABOVE everything */
     #eventModal,
-    #toast,
-    nav,
+    #messageModal,
+    #toast {
+      z-index: 1200 !important;
+    }
+
+    /* Header above normal content but below modals */
+    #topNav {
+      z-index: 1100 !important;
+    }
+
+    /* Let main content use normal stacking (will sit under header) */
     aside,
     .page-section {
-      z-index: 1000 !important;
+      z-index: auto !important;
     }
 
     .leaflet-popup {
@@ -143,7 +158,7 @@
 
 <body class="min-h-screen bg-gradient-to-b from-[#fffaf2] via-white to-[#fffaf2] text-slate-800">
   <!-- HEADER THAT WILL STAY AT THE TOP -->
-  <nav class="w-full sticky top-0 z-30 bg-umMaroon text-white shadow">
+   <nav id="topNav" class="w-full sticky top-0 bg-umMaroon text-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="bg-umGold text-umMaroon font-extrabold rounded px-2 py-1">U of M</div>
@@ -443,7 +458,10 @@
                 <h2 class="text-sm font-semibold text-slate-600 mb-1">Messages</h2>
 
                 <!-- Message 1 -->
-                <div class="flex items-center gap-3 border border-slate-200 rounded-lg p-2">
+                <button
+                  class="message-thread w-full flex items-center gap-3 border border-slate-200 rounded-lg p-2 hover:bg-slate-50 text-left"
+                  data-friend="Sarah"
+                >
                   <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
                     <i class="fa-solid fa-user text-slate-500 text-xs"></i>
                   </div>
@@ -451,10 +469,13 @@
                     <p class="text-sm font-semibold">Sarah</p>
                     <p class="text-xs text-slate-500 truncate">“Are you going to the Robotics Club event?”</p>
                   </div>
-                </div>
+                </button>
 
                 <!-- Message 2 -->
-                <div class="flex items-center gap-3 border border-slate-200 rounded-lg p-2">
+                <button
+                  class="message-thread w-full flex items-center gap-3 border border-slate-200 rounded-lg p-2 hover:bg-slate-50 text-left"
+                  data-friend="Chuka"
+                >
                   <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
                     <i class="fa-solid fa-user text-slate-500 text-xs"></i>
                   </div>
@@ -462,6 +483,7 @@
                     <p class="text-sm font-semibold">Chuka</p>
                     <p class="text-xs text-slate-500 truncate">“Thanks for sharing the Runners photos!”</p>
                   </div>
+                </button>
                 </div>
               </div>
             </aside>
@@ -614,7 +636,7 @@
     <!-- modal box -->
     <div class="relative max-w-xl mx-auto mt-24 bg-white rounded-xl shadow-lg overflow-hidden fade-in">
       <!-- floating close button -->
-      <button id="modalClose" class="absolute top-0 right-2 text-slate-500 hover:text-slate-800 z-50">x</button>
+      <button id="modalClose" class="absolute top-0 right-2 text-slate-500 hover:text-slate-800 z-40">x</button>
 
       <div class="flex">
         <img id="modalImage" class="w-40 h-40 object-cover hidden md:block" alt="Event image">
@@ -639,10 +661,66 @@
 
   <!-- GOLD TOAST (global) -->
   <div id="toast"
-    class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-umGold text-umMaroon px-4 py-2 rounded-full font-semibold shadow hidden z-50">
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-umGold text-umMaroon px-4 py-2 rounded-full font-semibold shadow hidden z-40">
     Registered! See you there 🎉
   </div>
 
+  <!-- MESSAGE MODAL (global) -->
+  <div id="messageModal" class="fixed inset-0 z-40 hidden">
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <!-- Modal box -->
+    <div
+      class="relative max-w-md w-full mx-auto mt-24 bg-white rounded-xl shadow-lg overflow-hidden fade-in flex flex-col"
+    >
+      <!-- Header -->
+      <header class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
+            <i class="fa-solid fa-user text-slate-500 text-xs"></i>
+          </div>
+          <div>
+            <p class="text-sm text-slate-500 text-xs">Chat with</p>
+            <h3 id="messageFriendName" class="text-base font-semibold text-slate-800">Friend</h3>
+          </div>
+        </div>
+        <button
+          id="messageClose"
+          class="text-slate-400 hover:text-slate-700 text-sm font-semibold px-2 py-1"
+        >
+          ✕
+        </button>
+      </header>
+
+      <!-- Messages body -->
+      <div
+        id="messageThreadBody"
+        class="flex-1 px-4 py-3 space-y-2 overflow-y-auto bg-slate-50"
+        style="max-height: 320px;"
+      >
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- Input area -->
+      <footer class="border-t border-slate-200 px-3 py-2 bg-white">
+        <div class="flex items-end gap-2">
+          <textarea
+            id="messageInput"
+            rows="1"
+            class="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-1 focus:ring-umGold"
+            placeholder="Type a message..."
+          ></textarea>
+          <button
+            id="messageSendBtn"
+            class="bg-umGold text-umMaroon font-semibold text-sm px-3 py-2 rounded-lg hover:bg-umGoldDark"
+          >
+            Send
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
   <!-- Your main app logic -->
   <script src="js/app.js"></script>
 

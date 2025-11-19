@@ -425,7 +425,6 @@ function showSection(id) {
   // ========================================================
 
   // Static data for the little popularity chart
-  // You can tweak the numbers/order later if you want
   const POPULAR_EVENTS_DATA = {
     everyone: [
       { key: 'runner',   name: '5k Run',        subtitle: 'Running Club',   count: 687 },
@@ -489,6 +488,108 @@ function showSection(id) {
   // change handler for the dropdown
   $(document).on('change', '#popularFilter', function () {
     renderPopularEvents(this.value);
+  });
+
+
+  // ---------- Simple Messages / Chat Popup ----------
+  // In-memory fake threads just for prototype
+  const MESSAGE_THREADS = {
+    Sarah: [
+      { from: "them", text: "Are you going to the Robotics Club event?" },
+      { from: "me",   text: "I might, depends on my lab schedule 😅" },
+    ],
+    Chuka: [
+      { from: "them", text: "Thanks for sharing the Runners photos!" },
+      { from: "me",   text: "They turned out pretty nice tbh 🔥" },
+    ],
+  };
+
+  let currentFriend = null;
+
+  function renderMessageThread(friendName) {
+    const $body = $("#messageThreadBody");
+    $body.empty();
+
+    const messages = MESSAGE_THREADS[friendName] || [];
+    if (!messages.length) {
+      $body.append(`
+        <p class="text-xs text-slate-500 text-center mt-4">
+          No messages yet. Say hi 👋
+        </p>
+      `);
+      return;
+    }
+
+    messages.forEach((msg) => {
+      const isMe = msg.from === "me";
+      const alignment = isMe ? "justify-end" : "justify-start";
+      const bubbleColor = isMe
+        ? "bg-umGold text-umMaroon"
+        : "bg-white text-slate-800 border border-slate-200";
+      const radius = isMe
+        ? "rounded-2xl rounded-br-sm"
+        : "rounded-2xl rounded-bl-sm";
+
+      $body.append(`
+        <div class="flex ${alignment}">
+          <div class="max-w-[75%] px-3 py-2 text-xs ${bubbleColor} ${radius} shadow-sm mb-1">
+            ${msg.text}
+          </div>
+        </div>
+      `);
+    });
+
+    // Scroll to bottom on open / new message
+    $body.scrollTop($body[0].scrollHeight);
+  }
+
+  function openMessageModal(friendName) {
+    currentFriend = friendName;
+    $("#messageFriendName").text(friendName);
+    renderMessageThread(friendName);
+    $("#messageModal").removeClass("hidden");
+  }
+
+  function closeMessageModal() {
+    $("#messageModal").addClass("hidden");
+    currentFriend = null;
+    $("#messageInput").val("");
+  }
+
+  // Click on a message card → open popup
+  $(document).on("click", ".message-thread", function () {
+    const friendName = $(this).data("friend");
+    openMessageModal(friendName);
+  });
+
+  // Close button + click outside (overlay)
+  $("#messageClose").on("click", closeMessageModal);
+  $(document).on("click", "#messageModal", function (e) {
+    if (e.target.id === "messageModal") {
+      closeMessageModal();
+    }
+  });
+
+  // Send message
+  $("#messageSendBtn").on("click", function () {
+    const text = ($("#messageInput").val() || "").trim();
+    if (!text || !currentFriend) return;
+
+    if (!MESSAGE_THREADS[currentFriend]) {
+      MESSAGE_THREADS[currentFriend] = [];
+    }
+    MESSAGE_THREADS[currentFriend].push({ from: "me", text });
+
+    $("#messageInput").val("");
+    renderMessageThread(currentFriend);
+  });
+
+  // Press Enter to send (Shift+Enter = newline)
+  $("#messageInput").on("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      $("#messageSendBtn").click();
+    }
   });
 
   // ========================================================
