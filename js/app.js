@@ -27,7 +27,7 @@ $(function () {
       type: "event",
       name: "Computer Science Club Meetup",
       date: "Nov 15, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "EITC Atrium",
       category: "Social",
       price: 0,
@@ -41,9 +41,9 @@ $(function () {
       type: "event",
       name: "U of M Career Fair",
       date: "Nov 20, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "UMSU University Centre",
-      category: "Jobs",
+      category: "Career Events",
       price: 0,
       lat: 49.809108826518546,
       lng: -97.13425395814758,
@@ -55,7 +55,7 @@ $(function () {
       type: "event",
       name: "Science Faculty Coffee Chat",
       date: "Nov 25, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Armes Building Lobby",
       category: "By Faculty",
       price: 0,
@@ -67,11 +67,11 @@ $(function () {
     {
       id: 4,
       type: "event",
-      name: "Campus Fun Run 5K",
+      name: "Campus Social Run 5K",
       date: "Nov 30, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Main Quad",
-      category: "Fun",
+      category: "Social",
       price: 10,
       lat: 49.80876956369388,
       lng: -97.13203300087609,
@@ -83,7 +83,7 @@ $(function () {
       type: "event",
       name: "Engineering Project Showcase",
       date: "Dec 3, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Engineering Building",
       category: "By Faculty",
       price: 0,
@@ -97,23 +97,23 @@ $(function () {
       type: "event",
       name: "Resume & LinkedIn Workshop",
       date: "Dec 6, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Dafoe Library - 2nd Floor Study Area",
-      category: "Co-op",
+      category: "Career Events",
       price: 0,
       lat: 49.81018198918353,
       lng: -97.13142145152993,
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-      description: "Hands-on polishing session for co-op applications."
+      description: "Hands-on polishing session for Career Events applications."
     },
     {
       id: 7,
       type: "event",
       name: "Tech Job Fair: Startup Edition",
       date: "Dec 10, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "University Centre 202",
-      category: "Jobs",
+      category: "Career Events",
       price: 0,
       lat: 49.80937538849832,
       lng: -97.13443600975893,
@@ -125,9 +125,9 @@ $(function () {
       type: "event",
       name: "Student Art Showcase",
       date: "Dec 12, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "ART Lab",
-      category: "Fun",
+      category: "Social",
       price: 5,
       lat: 49.80760289685259,
       lng: -97.13200775285695,
@@ -140,9 +140,9 @@ $(function () {
       type: "event",
       name: "Late-Night Study Jam",
       date: "Dec 14, 2025",
-      time: "7:00 PM – 11:00 PM",
-      place: "Dafoe Library – Main Floor",
-      category: "Study",
+      time: "7:00 PM - 11:00 PM",
+      place: "Dafoe Library - Main Floor",
+      category: "Social",
       price: 0,
       lat: 49.8102931969276,
       lng: -97.13194199851485,
@@ -154,7 +154,7 @@ $(function () {
       type: "event",
       name: "Law Faculty Mixer",
       date: "Jan 10, 2026",
-      time: "4:00 PM – 6:00 PM",
+      time: "4:00 PM - 6:00 PM",
       place: "Robson Hall Atrium",
       category: "By Faculty",
       price: 0,
@@ -168,7 +168,7 @@ $(function () {
       type: "event",
       name: "St. John’s College Holiday Dinner",
       date: "Dec 18, 2025",
-      time: "6:00 PM – 9:00 PM",
+      time: "6:00 PM - 9:00 PM",
       place: "St. John’s College Dining Hall",
       category: "Social",
       price: 15,
@@ -182,9 +182,9 @@ $(function () {
       type: "event",
       name: "Campus Nature Walk",
       date: "Jan 5, 2026",
-      time: "2:00 PM – 3:30 PM",
+      time: "2:00 PM - 3:30 PM",
       place: "Red River Passage",
-      category: "Fun",
+      category: "Social",
       price: 0,
       lat: 49.80638511205691,
       lng: -97.1344229473885,
@@ -196,9 +196,9 @@ $(function () {
       type: "event",
       name: "Science Lab Safety Workshop",
       date: "Jan 12, 2026",
-      time: "1:00 PM – 3:00 PM",
-      place: "Buller Building – Room 316",
-      category: "Academic",
+      time: "1:00 PM - 3:00 PM",
+      place: "Buller Building - Room 316",
+      category: "By Faculty",
       price: 0,
       lat: 49.81068005596369,   // +0.00020 north
       lng: -97.1331811892718,   // +0.00030 east
@@ -210,9 +210,9 @@ $(function () {
       type: "event",
       name: "Education Faculty Book Swap",
       date: "Jan 22, 2026",
-      time: "12:00 PM – 3:00 PM",
+      time: "12:00 PM - 3:00 PM",
       place: "Education Building Lobby",
-      category: "Fun",
+      category: "Social",
       price: 0,
       lat: 49.80855924544929,    // +0.00030 north
       lng: -97.1366558846671,    // +0.00030 east
@@ -224,8 +224,8 @@ $(function () {
       type: "event",
       name: "UMSU Winter Kickoff Concert",
       date: "Jan 25, 2026",
-      time: "7:00 PM – 11:00 PM",
-      place: "University Centre – Main Stage",
+      time: "7:00 PM - 11:00 PM",
+      place: "University Centre - Main Stage",
       category: "Social",
       price: 20,
       lat: 49.80964798942664,    // +0.00030 north
@@ -238,9 +238,9 @@ $(function () {
       type: "event",
       name: "Bison Athletics Fan Night",
       date: "Jan 29, 2026",
-      time: "5:00 PM – 9:00 PM",
+      time: "5:00 PM - 9:00 PM",
       place: "Investors Group Athletic Centre",
-      category: "Athletics",
+      category: "Social",
       price: 5,
       lat: 49.809370962072546,   // +0.00030 north
       lng: -97.13939121295969,   // +0.00030 east
@@ -555,10 +555,10 @@ function sortEventsByDate(events) {
     if (b.type !== "event") return -1;
 
     // Extract ONLY the start time
-    // Handles: "-", "–", "—"
+    // Handles: "-", "-", "—"
     const extractStartTime = (timeStr) => {
       if (!timeStr) return "12:00 AM"; // fallback so date still parses
-      return timeStr.split(/[-–—]/)[0].trim();
+      return timeStr.split(/[--—]/)[0].trim();
     };
 
     // Build full datetime strings that JS CAN parse
