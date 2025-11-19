@@ -893,7 +893,7 @@ function sortEventsByDate(events) {
         maxBounds: MAP_BOUNDS
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {}).addTo(createMap);
+      L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {}).addTo(createMap);
 
       // Allow user to click to place marker
       createMap.on('click', function (e) {
@@ -917,10 +917,12 @@ function sortEventsByDate(events) {
 
     // Collect form data
     function collectEventData() {
+         
+         
       return {
         name: $('#eventName').val(),
-        date: $('#eventDate').val(),
-        time: $('#eventTime').val(),
+        date: convertDate($('#eventDate').val()),
+        time: convertTime($('#eventTime').val()),
         place: $('#eventPlace').val(),
         category: $('#eventCategory').val(),
         price: Number($('#eventPrice').val()),
@@ -930,6 +932,35 @@ function sortEventsByDate(events) {
         lng: parseFloat($('#eventLng').val()),
         type: 'event',
       };
+    }
+    function convertDate(dateStr)
+    {
+        if(!dateStr instanceof String){
+         return ''
+        }
+    
+
+        const [year,month, day] = dateStr.split('-');
+        const formattedDate = new Date(Number(year), Number(month) - 1, Number(day));
+        return formattedDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    }
+    function convertTime(timeStr)
+    {
+        if(!timeStr instanceof String){
+         return ''
+        }
+        const [hour, minute] = timeStr.split(':');
+        const formattedTime = new Date();
+        formattedTime.setHours(Number(hour));
+        formattedTime.setMinutes(Number(minute));
+        return formattedTime.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+        });
     }
 
     // Render card preview (same as carousel)
