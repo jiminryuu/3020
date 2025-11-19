@@ -836,6 +836,10 @@ function sortEventsByDate(events) {
     const img = ev.image && ev.image.trim() ? ev.image : PLACEHOLDER_IMG;
     $('#modalImage').attr('src', img);
 
+    // ensure normal event buttons are visible
+    $('#modalRegister').removeClass('hidden');
+    $('#modalCenter').removeClass('hidden');
+
     $('#eventModal').removeClass('hidden');
     $('body').addClass('modal-open');
 
@@ -1037,6 +1041,27 @@ function sortEventsByDate(events) {
   // ========================================================
   // TODO: (Rodrigo) Implement achievements tracking / badges
 
+  // Use the same event modal to show details for the "Best Attendee" reward
+  function openBestAttendeeDetails() {
+    const title = "Best Attendee";
+    const meta = "Achievement • Earned by attending lots of different events on campus";
+    const desc =
+      "Level up this badge by going to more events across different categories. " +
+      "Tip: mix morning, evening, academic, and fun events to climb faster.";
+
+    $('#modalTitle').text(title);
+    $('#modalMeta').text(meta);
+    $('#modalDesc').text(desc);
+    $('#modalImage').attr('src', PLACEHOLDER_IMG);
+
+    // hide event-specific buttons for the reward view
+    $('#modalRegister').addClass('hidden');
+    $('#modalCenter').addClass('hidden');
+
+    $('#eventModal').removeClass('hidden');
+    $('body').addClass('modal-open');
+  }
+
 
   // ========================================================
   // ==================== [ CREATE PAGE ] ====================
@@ -1218,6 +1243,11 @@ function sortEventsByDate(events) {
     $('#modalClose').click(closeModal);
     $(document).on('click', '#eventModal', function (e) {
       if (e.target.id === 'eventModal') closeModal();
+    });
+
+    // Reward info button (Achievements page)
+    $(document).on('click', '.reward-info-btn', function () {
+      openBestAttendeeDetails();
     });
 
     // Modal Actions
