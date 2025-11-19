@@ -920,8 +920,110 @@
         <!-- PROFILE -->
         <section id="profile-page" class="page-section hidden">
           <h1 class="text-2xl font-bold mb-3">Your Profile</h1>
-          <div class="bg-white rounded-xl shadow p-6">
-            <p class="text-slate-700">Vassilly todo page</p>
+
+          <div class="bg-white rounded-xl shadow flex items-center gap-6 mb-6">
+            <!-- LEFT SIDE -->
+            <aside class="p-6 flex flex-col justify-start items-stretch h-full min-h-[400px] w-56">
+              <button type="button" data-target="profile_personalInfoPage" class="profile_btn bg-umGold shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Personal Info</button>
+              <button type="button" data-target="profile_privacyPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Privacy</button>
+              <button type="button" data-target="profile_securityPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Security</button>
+              <button type="button" data-target="profile_notificationsPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Notifications</button>
+            </aside>
+
+            <!-- VERTICAL DIVIDER LINE -->
+            <div class="border-l h-90 min-h-[350px] border-gray-300"></div>
+
+            <!-- RIGHT SIDE -->
+            <div class="p-6 space-y-6 h-full min-h-[400px] w-full min-w-[600px]">
+              <!-- PERSONAL INFO -->
+              <div class="profile_page-section" id="profile_personalInfoPage">
+                <!-- PICTURE, DESCRIPTION -->
+                <div class="flex items-center gap-6 mb-6">
+                  <div class="w-24 h-24 rounded overflow-hidden border-2 border-umMaroon flex-shrink-0">
+                    <img src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Description:</h3>
+                    <p class="text-slate-600">Description text</p>
+                  </div>
+                </div>
+
+                <!-- NAME -->
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Name:</h3>
+                  <h3 class="text-slate-600">Hassan Khan</h3>
+                </div>
+
+                <!-- DATE OF BIRTH -->
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Date of Bearth:</h3>
+                  <p class="text-slate-600">November 24, 2001</p>
+                </div>
+
+                <!-- PREFERRED NAME -->
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Preferred Name:</h3>
+                  <p class="text-slate-600">Hassan Khan</p>
+                </div>
+
+                <!-- FACULTY -->
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Faculty:</h3>
+                  <p class="text-slate-600">Faculty name</p>
+                </div>
+                </div>
+
+              <!-- PRIVACY -->
+              <div class="profile_page-section hidden" id="profile_privacyPage">
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your name </h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your Date of Birth</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your email</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your name</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your Date of Birth</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your email</h3>
+                </div>
+
+              </div>
+
+              <!-- SECURITY -->
+              <div class="profile_page-section hidden" id="profile_securityPage">
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Email:</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Password:</h3>
+                </div>
+
+              <!-- NOTIFICATIONS -->
+              <div class="profile_page-section hidden" id="profile_notificationsPage">
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Organizator 1</h3>
+                </div>
+
+                <div class="flex items-center gap-6 mb-6">
+                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Organizator 2</h3>
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </section>
       </section>
