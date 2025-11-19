@@ -1020,8 +1020,17 @@ function sortEventsByDate(events) {
   // ========================================================
   // =================== [ PROFILE PAGE ] ====================
   // ========================================================
-  // TODO: (Vassilly) Implement profile data rendering / editing
+function showProfileSection(id) {
+    $('.profile_page-section').addClass('hidden');
+    $('#' + id).removeClass('hidden');
 
+    // Reset all button states
+    $('.profile_btn').removeClass('bg-umGold');
+
+    // Highlight the current one
+    const $btn = $(`.profile_btn[data-target="${id}"]`);
+    $btn.addClass('bg-umGold');
+  }
 
 
   // ---------- UI Bindings FOR ALL TO MODIFY----------
@@ -1113,6 +1122,11 @@ function sortEventsByDate(events) {
         console.warn("Marker not found for ID:", id);
       }
     }
+
+    // Profile navigation
+    $(document).on('click', '.profile_btn', function () {
+      showProfileSection($(this).data('target'));
+    });
 
   }
 
