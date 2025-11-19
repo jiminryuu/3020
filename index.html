@@ -318,23 +318,36 @@
             <!-- LEFT: main friends content -->
             <div class="space-y-6">
               <!-- Top row: title + tabs -->
-              <header class="bg-white rounded-xl shadow p-4">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                  <h1 class="text-2xl font-bold text-umMaroon">Friends</h1>
+              <header class="bg-white rounded-xl shadow p-6 space-y-1">
 
-                  <!-- Tabs -->
-                  <nav class="flex flex-wrap gap-2 text-sm">
-                    <button class="px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold">
-                      My Friends <span class="ml-1 text-xs bg-white/80 px-2 py-0.5 rounded-full">120</span>
-                    </button>
-                    <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
-                      Friend Requests <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">5</span>
-                    </button>
-                    <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
-                      Groups <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">3</span>
-                    </button>
-                  </nav>
+                <!-- Page Title -->
+                <h1 class="text-2xl font-bold text-umMaroon mb-4">Social</h1>
+              
+                <!-- Profile Block (identical styling to Achievements) -->
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-2xl text-slate-600 border border-slate-200">
+                    <i class="fa-solid fa-user"></i>
+                  </div>
+              
+                  <div>
+                    <p class="text-xs uppercase tracking-wide text-slate-400">Social Dashboard</p>
+                    <h2 class="text-xl font-semibold text-slate-800 leading-tight">Hassan Khan</h2>
+                    <p class="text-sm text-slate-500">Computer Science • U of M</p>
+                  </div>
                 </div>
+              
+                <nav class="flex flex-wrap gap-2 text-sm mt-4 md:mt-5">
+                  <button class="px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold">
+                    My Friends <span class="ml-1 text-xs bg-white/80 px-2 py-0.5 rounded-full">120</span>
+                  </button>
+                  <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    Friend Requests <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">5</span>
+                  </button>
+                  <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    Groups <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">3</span>
+                  </button>
+                </nav>
+              
               </header>
 
               <!-- Friend cards row -->
