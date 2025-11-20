@@ -474,6 +474,14 @@ $(function () {
       lat: "49.8066761108781", lng: "-97.13253517122608",
       description: "Campus maintenance and operations."
     },
+    {
+        id: 233, type: "landmark",
+        name: "Drake Centre",
+        place: "Drake Centre",
+        category: "Landmark",
+        lat: "49.808066", lng: "-97.130135",
+        description: "Asper School of Business and Transport Institute."
+    },
 
     // Region 4 — Athletics Zone
     {
