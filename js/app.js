@@ -1073,6 +1073,29 @@ function sortEventsByDate(events) {
   (function initCreatePage() {
     let createMap;
     let createMarker;
+    let placeSetByLandmark = false;
+    let pendingEventData = null;
+
+
+    function fuzzCoords(baseLat, baseLng) {
+      const MAX_OFFSET = 0.00010; // ~20–30m-ish on campus, tweak as needed
+      const latOffset = (Math.random() * 2 - 1) * MAX_OFFSET;
+      const lngOffset = (Math.random() * 2 - 1) * MAX_OFFSET;
+
+      let lat = baseLat + latOffset;
+      let lng = baseLng + lngOffset;
+
+      // Clamp inside campus bounds just in case
+      const minLat = MAP_BOUNDS[0][0];
+      const maxLat = MAP_BOUNDS[1][0];
+      const minLng = MAP_BOUNDS[0][1];
+      const maxLng = MAP_BOUNDS[1][1];
+
+      lat = Math.min(Math.max(lat, minLat), maxLat);
+      lng = Math.min(Math.max(lng, minLng), maxLng);
+
+      return { lat, lng };
+    }
 
     function initCreateMap() {
       createMap = L.map('createMap', {
@@ -1104,11 +1127,73 @@ function sortEventsByDate(events) {
         setTimeout(() => createMap.invalidateSize(), 100);
       }, 200);
     });
+(function initLandmarkSelect() {
+      const $select = $('#landmarkSelect');
+      if (!$select.length) return;
+
+      // Use allEvents landmarks that actually have coordinates
+      const landmarks = allEvents.filter(ev =>
+        ev.type === 'landmark' && ev.lat && ev.lng
+      );
+
+      landmarks.forEach(lm => {
+        $select.append(
+          $('<option>', {
+            value: lm.id,
+            text: lm.name
+          })
+        );
+      });
+
+      $select.on('change', function () {
+        const id = Number($(this).val());
+        if (!id) return;
+
+        const lm = allEvents.find(ev => ev.id === id);
+        if (!lm) return;
+
+        const baseLat = parseFloat(lm.lat);
+        const baseLng = parseFloat(lm.lng);
+        if (isNaN(baseLat) || isNaN(baseLng)) return;
+
+        const { lat, lng } = fuzzCoords(baseLat, baseLng);
+
+        if (createMarker) {
+          createMap.removeLayer(createMarker);
+        }
+        createMarker = L.marker([lat, lng]).addTo(createMap);
+        createMap.setView([lat, lng], 17);
+
+        // Set the hidden event coordinates to the fuzzed location
+        $('#eventLat').val(lat.toFixed(6));
+        $('#eventLng').val(lng.toFixed(6));
+
+        // If location text is empty, fill it from the landmark
+        
+          $('#eventPlace').val(lm.place || lm.name);
+          placeSetByLandmark = true;
+        
+      });
+    })();
+    $('#eventPlace').on('input', function () {
+      placeSetByLandmark = false;
+    });
+    // Collect form data
+    // Look up a landmark from the typed place name
+    function findLandmarkByName(name) {
+      if (!name) return null;
+      const needle = name.toLowerCase().trim();
+      return allEvents.find(ev =>
+        ev.type === "landmark" &&
+        (
+          (ev.name && ev.name.toLowerCase().trim() === needle) ||
+          (ev.place && ev.place.toLowerCase().trim() === needle)
+        )
+      );
+    }
 
     // Collect form data
     function collectEventData() {
-         
-         
       return {
         name: $('#eventName').val(),
         date: convertDate($('#eventDate').val()),
@@ -1123,6 +1208,86 @@ function sortEventsByDate(events) {
         type: 'event',
       };
     }
+
+    // Approximate distance in meters between two lat/lng points
+function distanceCalc(lat1, lng1, lat2, lng2) {
+  const dLat = lat1 - lat2;
+  const dLng = lng1 - lng2;
+  return Math.sqrt(dLat * dLat + dLng * dLng);
+}
+
+function findNearestLandmark(lat, lng, excludeId) {
+  let nearest = null;
+  let nearestDist = Infinity;
+
+  allEvents.forEach(ev => {
+    if (ev.type !== 'landmark') return;
+    if (excludeId && ev.id === excludeId) return;
+    if (!ev.lat || !ev.lng) return;
+
+    const d = distanceCalc(
+      lat,
+      lng,
+      parseFloat(ev.lat),
+      parseFloat(ev.lng)
+    );
+
+    if (d < nearestDist) {
+      nearestDist = d;
+      nearest = ev;
+    }
+  });
+
+  return { landmark: nearest, distance: nearestDist };
+}
+
+function checkLocationMismatch(data) {
+  // Optional: only warn if user typed manually
+  // if (!data.place || placeSetByLandmark) return { shouldWarn: false };
+
+  if (!data.place) return { shouldWarn: false };
+
+  const typedLm = findLandmarkByName(data.place);
+  if (!typedLm || !typedLm.lat || !typedLm.lng) {
+    return { shouldWarn: false };
+  }
+
+  if (isNaN(data.lat) || isNaN(data.lng)) {
+    return { shouldWarn: false };
+  }
+
+  const typedLat = parseFloat(typedLm.lat);
+  const typedLng = parseFloat(typedLm.lng);
+
+  // distance from marker to typed landmark
+  const distToTyped = distanceCalc(data.lat, data.lng, typedLat, typedLng);
+  const THRESHOLD = 0.001; // ~100–200 m depending on latitude
+
+
+
+  // Now look for closest *other* landmark
+  const { landmark: nearestOther, distance: distToNearestOther } =
+    findNearestLandmark(data.lat, data.lng, typedLm.id);
+
+  const result = {
+    shouldWarn: true,
+    typedLandmark: typedLm,
+    distanceToTyped: distToTyped,
+    suggestedLandmark: null,
+    distanceToSuggested: null,
+  };
+
+  if (nearestOther && distToNearestOther < distToTyped) {
+    result.suggestedLandmark = nearestOther;
+    result.distanceToSuggested = distToNearestOther;
+  }
+    if (distToTyped <= THRESHOLD && distToNearestOther > distToTyped) {
+    // close enough, no warning
+    return { shouldWarn: false };
+  }
+  return result;
+}
+
     function convertDate(dateStr)
     {
         if(!dateStr instanceof String){
@@ -1184,15 +1349,8 @@ function sortEventsByDate(events) {
     });
 
     // Submit handler
-    $('#createEventForm').on('submit', function (e) {
-      e.preventDefault();
-      const data = collectEventData();
-
-      if (!data.lat || !data.lng) {
-        alert('Please click on the map to set a location.');
-        return;
-      }
-
+    // Actually create + save the event
+    function finalizeCreate(data) {
       data.id = Date.now(); // unique ID
       allEvents.push(data);
       allEvents = sortEventsByDate(allEvents);
@@ -1204,7 +1362,66 @@ function sortEventsByDate(events) {
         createMap.removeLayer(createMarker);
         createMarker = null;
       }
+    }
+
+    // Submit handler
+    $('#createEventForm').on('submit', function (e) {
+      e.preventDefault();
+      const data = collectEventData();
+
+      if (!data.lat || !data.lng || isNaN(data.lat) || isNaN(data.lng)) {
+        alert('Please click on the map to set a location.');
+        return;
+      }
+
+      const mismatch = checkLocationMismatch(data);
+
+      if (mismatch.shouldWarn) {
+        pendingEventData = data;
+
+        // Typed landmark (from the location name)
+        const typedName =
+        (mismatch.typedLandmark && (mismatch.typedLandmark.place || mismatch.typedLandmark.name)) ||
+        data.place;
+
+        $('#locWarnPlaceName').text(typedName);
+
+        // Optional suggestion: closer landmark based on marker position
+        if (mismatch.suggestedLandmark) {
+            const suggestedName =
+            mismatch.suggestedLandmark.place || mismatch.suggestedLandmark.name;
+            $('#locWarnSuggestionText')
+            .text(`Your marker is much closer to "${suggestedName}".`);
+            $('#locWarnSuggestion').removeClass('hidden');
+        } else {
+            $('#locWarnSuggestion').addClass('hidden');
+        }
+
+        $('#locationWarningModal').removeClass('hidden');
+        $('body').addClass('modal-open');
+        return;
+        }
+
+      // No mismatch -> create immediately
+      finalizeCreate(data);
     });
+
+    // Location warning modal buttons
+    $('#locWarnCancel, #locWarnClose').on('click', function () {
+      pendingEventData = null;
+      $('#locationWarningModal').addClass('hidden');
+      $('body').removeClass('modal-open');
+    });
+
+    $('#locWarnSubmit').on('click', function () {
+      if (pendingEventData) {
+        finalizeCreate(pendingEventData);
+        pendingEventData = null;
+      }
+      $('#locationWarningModal').addClass('hidden');
+      $('body').removeClass('modal-open');
+    });
+
   })();
 
   // ========================================================
