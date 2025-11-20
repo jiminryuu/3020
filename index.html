@@ -844,20 +844,18 @@
                   <input type="time" id="eventTime" class="w-full border rounded-lg p-2" required>
                 </div>
               </div>
+<div>
+  <label class="block text-sm font-medium mb-1">Choose a campus landmark or click on the map</label>
+  <select id="landmarkSelect" class="w-full border rounded-lg p-2">
+    <option value="">-- Select a landmark (optional) --</option>
+    <!-- options will be populated by JS -->
+  </select>
+</div>
 
 <div>
   <label class="block text-sm font-medium mb-1">Location</label>
   <input type="text" id="eventPlace" class="w-full border rounded-lg p-2"
          placeholder="e.g. EITC Atrium" required>
-</div>
-
-<!-- NEW: landmark selector -->
-<div>
-  <label class="block text-sm font-medium mb-1">Or choose a campus landmark</label>
-  <select id="landmarkSelect" class="w-full border rounded-lg p-2">
-    <option value="">-- Select a landmark (optional) --</option>
-    <!-- options will be populated by JS -->
-  </select>
 </div>
 
 

@@ -1135,7 +1135,9 @@ function sortEventsByDate(events) {
       const landmarks = allEvents.filter(ev =>
         ev.type === 'landmark' && ev.lat && ev.lng
       );
+     landmarks.sort((a, b) => a.name.localeCompare(b.name));
 
+      // Populate dropdown
       landmarks.forEach(lm => {
         $select.append(
           $('<option>', {
