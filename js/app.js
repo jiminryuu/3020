@@ -586,6 +586,10 @@ function sortEventsByDate(events) {
   bindUI();
   renderRegistered();
 
+  // Initial render for Social page
+  // renderFriendsGrid();
+  // renderFriendRequests();
+
 
   // ========================================================
   // ===================== [ NAVIGATION ] ====================
@@ -1036,6 +1040,129 @@ function sortEventsByDate(events) {
     }
   });
 
+    // ---------- Friends + Friend Requests (Social tabs) ----------
+
+    const FRIENDS = [
+      { id: "rodrigo", name: "Rodrigo", subtitle: "Joined 2 events", tag: "Invite (UMES)" },
+      { id: "will",    name: "Will",    subtitle: "Shared 5 events", tag: "Invite (CMSS)" },
+      { id: "vassily", name: "Vassily", subtitle: "Shared photos of “Runners”", tag: "Invite (UMIEEE)" },
+      { id: "jamal",   name: "Jamal",   subtitle: "Shared “Runners” event",      tag: "Invite (MMECS)" },
+    ];
+    
+    const FRIENDS_BASE_TOTAL = 120 - FRIENDS.length;
+
+    let FRIEND_REQUESTS = [
+      { id: "Ji Min", name: "Ji Min", subtitle: "2 mutual events • Robotics Club" },
+      { id: "humberto", name: "Humberto",   subtitle: "1 shared event • “Runners” photos" },
+      { id: "henry",  name: "Henry",    subtitle: "Recently joined your event" },
+    ];
+    
+    function updateSocialBadges() {
+      const $friendsBadge = $("#friendsCount");
+      if ($friendsBadge.length) {
+        // Display a larger "total friends" number by adding a base offset
+        $friendsBadge.text(FRIENDS_BASE_TOTAL + FRIENDS.length);
+      }
+
+      const $reqBadge = $("#friendReqCount");
+      if ($reqBadge.length) {
+        $reqBadge.text(FRIEND_REQUESTS.length);
+      }
+    }
+
+    function renderFriendsGrid() {
+      const $grid = $("#friendsRow");
+      if (!$grid.length) return;
+    
+      // Optional search filter by friend name
+      const query = ($("#friendsSearch").val() || "").toLowerCase().trim();
+    
+      let visibleFriends = FRIENDS;
+      if (query) {
+        visibleFriends = FRIENDS.filter(friend =>
+          friend.name.toLowerCase().includes(query)
+        );
+      }
+    
+      if (!visibleFriends.length) {
+        $grid.html(`
+          <p class="text-sm text-slate-500">
+            No friends match your search. Try a different name.
+          </p>
+        `);
+        updateSocialBadges();
+        return;
+      }
+    
+      $grid.empty();
+      visibleFriends.forEach(friend => {
+        $grid.append(`
+          <article
+            class="flex flex-col justify-between bg-white border border-slate-200 rounded-lg p-3
+                   h-full min-w-0"
+          >
+            <div>
+              <p class="font-semibold text-slate-900 truncate">${friend.name}</p>
+              <p class="text-xs text-slate-500">${friend.subtitle}</p>
+            </div>
+            <button
+              class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-3 py-1 rounded-full"
+              type="button"
+            >
+              Message
+            </button>
+          </article>
+        `);
+      });
+    
+      updateSocialBadges();
+    }
+
+  
+    function renderFriendRequests() {
+      const $list = $("#friendRequestsList");
+      if (!$list.length) return;
+  
+      $list.empty();
+  
+      if (!FRIEND_REQUESTS.length) {
+        $list.html(`
+          <p class="text-sm text-slate-500">
+            No pending requests right now. 🎉
+          </p>
+        `);
+        return;
+      }
+  
+      FRIEND_REQUESTS.forEach(req => {
+        $list.append(`
+          <div
+            class="flex items-center justify-between border border-slate-200 rounded-lg p-3 bg-slate-50/60"
+          >
+            <div>
+              <p class="font-semibold text-slate-900">${req.name}</p>
+              <p class="text-xs text-slate-500">${req.subtitle}</p>
+            </div>
+            <div class="flex gap-2 text-xs">
+              <button
+                class="btn-accept-request px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold"
+                data-id="${req.id}"
+              >
+                Accept
+              </button>
+              <button
+                class="btn-reject-request px-3 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200"
+                data-id="${req.id}"
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        `);
+      });
+      updateSocialBadges();
+    }
+
   // ========================================================
   // ================= [ ACHIEVEMENTS PAGE ] =================
   // ========================================================
@@ -1227,12 +1354,29 @@ function showProfileSection(id) {
   function bindUI() {
     // Navigation
     $(document).on('click', '.page-link', function () {
-      showSection($(this).data('target'));
+      const target = $(this).data('target');
+      showSection(target);
+
+      // When we open the Social page, make sure all its widgets render
+      if (target === 'social-page') {
+        // friends grid + pending requests
+        renderFriendsGrid();
+        renderFriendRequests();
+
+        // most popular events chart (respect current filter)
+        const mode = $('#popularFilter').val() || 'everyone';
+        renderPopularEvents(mode);
+      }
     });
 
     // Filters / Search
     $(document).on('change', '.filter', applyFilters);
     $('#searchBar').on('input', applyFilters);
+
+    // Social: live search within My Friends
+    $(document).on('input', '#friendsSearch', function () {
+      renderFriendsGrid();
+    });
 
     // Carousel
     $('#nextBtn').click(() => $('#eventCarousel').animate({ scrollLeft: '+=320' }, 260));
@@ -1305,6 +1449,60 @@ function showProfileSection(id) {
       } else {
         centerOnMap(id);
       }
+    });
+
+    // -------- Social page: tab switching --------
+    $(document).on("click", ".social-tab", function () {
+      const tab = $(this).data("tab");
+
+      // Update button styles
+      $(".social-tab")
+        .removeClass("bg-umGold text-umMaroon font-semibold")
+        .addClass("bg-slate-100 text-slate-700");
+      $(this)
+        .removeClass("bg-slate-100 text-slate-700")
+        .addClass("bg-umGold text-umMaroon font-semibold");
+
+      // Show/hide sections
+      $("#friendsSection").toggleClass("hidden", tab !== "friends");
+      $("#friendRequestsSection").toggleClass("hidden", tab !== "requests");
+      $("#groupsSection").toggleClass("hidden", tab !== "groups");
+
+      // Make sure the right content is drawn for the active tab
+      if (tab === "friends") {
+        renderFriendsGrid();
+      } else if (tab === "requests") {
+        renderFriendRequests();
+      }
+    });
+
+    // -------- Social page: Accept / Reject friend requests --------
+    $(document).on("click", ".btn-accept-request", function () {
+      const id = $(this).data("id");
+      const idx = FRIEND_REQUESTS.findIndex(r => r.id === id);
+      if (idx === -1) return;
+
+      const req = FRIEND_REQUESTS.splice(idx, 1)[0];
+
+      // Add to friends list
+      FRIENDS.push({
+        id: req.id,
+        name: req.name,
+        subtitle: req.subtitle,
+        tag: "Invite to event"
+      });
+
+      renderFriendsGrid();
+      renderFriendRequests();
+      showToast("Friend request accepted ✅");
+    });
+
+    $(document).on("click", ".btn-reject-request", function () {
+      const id = $(this).data("id");
+      FRIEND_REQUESTS = FRIEND_REQUESTS.filter(r => r.id !== id);
+
+      renderFriendRequests();
+      showToast("Friend request removed");
     });
 
     // Helper: center map on a given event marker safely
