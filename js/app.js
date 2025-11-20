@@ -1304,22 +1304,152 @@ function sortEventsByDate(events) {
         
       });
     })();
+ const $eventPlace = $('#eventPlace');
+    const $suggestWrap = $('#eventPlaceSuggestion');
+    const $suggestText = $('#eventPlaceSuggestionText');
+    const $suggestBtn  = $('#eventPlaceSuggestionBtn');
+
     $('#eventPlace').on('input', function () {
       placeSetByLandmark = false;
+
+      const val = this.value;
+      // If field is empty or too short, hide suggestion
+      if (!val || val.trim().length < 2) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      const lm = findLandmarkByName(val);
+      if (!lm) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      const displayName = lm.place || lm.name || "";
+      if (!displayName) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      // If the user has already basically typed the name, don't nag
+      if (displayName.toLowerCase().trim() === val.toLowerCase().trim()) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      // Show suggestion
+      $suggestText.text(displayName);
+      $suggestWrap.removeClass('hidden');
+
+      // Attach click handler to apply it
+      $suggestBtn.off('click').on('click', function () {
+        // Fill the input
+        $eventPlace.val(displayName);
+        $suggestWrap.addClass('hidden');
+        placeSetByLandmark = true;
+
+        // Optionally: also move the map marker & set coords, with fuzzing
+        const baseLat = parseFloat(lm.lat);
+        const baseLng = parseFloat(lm.lng);
+        if (!isNaN(baseLat) && !isNaN(baseLng) && createMap) {
+          const { lat, lng } = fuzzCoords(baseLat, baseLng);
+
+          if (createMarker) {
+            createMap.removeLayer(createMarker);
+          }
+          createMarker = L.marker([lat, lng]).addTo(createMap);
+          createMap.setView([lat, lng], 17);
+
+          $('#eventLat').val(lat.toFixed(6));
+          $('#eventLng').val(lng.toFixed(6));
+        }
+      });
     });
     // Collect form data
     // Look up a landmark from the typed place name
+    // Normalize a place/name for fuzzy matching
+    function normalizePlace(str) {
+      if (!str) return "";
+      return str
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/\b(building|hall|centre|center|college|library|the)\b/g, "") // optional stop-words
+        .replace(/[^a-z0-9]/g, "") // strip punctuation/whitespace
+        .trim();
+    }
+
+    // Simple Levenshtein distance
+    function levenshtein(a, b) {
+      const m = a.length;
+      const n = b.length;
+      if (m === 0) return n;
+      if (n === 0) return m;
+
+      const dp = new Array(n + 1);
+      for (let j = 0; j <= n; j++) dp[j] = j;
+
+      for (let i = 1; i <= m; i++) {
+        let prev = dp[0];
+        dp[0] = i;
+        for (let j = 1; j <= n; j++) {
+          const temp = dp[j];
+          if (a[i - 1] === b[j - 1]) {
+            dp[j] = prev; // no change
+          } else {
+            dp[j] = 1 + Math.min(prev, dp[j], dp[j - 1]); // sub, del, ins
+          }
+          prev = temp;
+        }
+      }
+      return dp[n];
+    }
+
+    // Look up a landmark from the typed place name (fuzzy)
     function findLandmarkByName(name) {
       if (!name) return null;
-      const needle = name.toLowerCase().trim();
-      return allEvents.find(ev =>
+
+      const rawNeedle = name.toLowerCase().trim();
+      const normNeedle = normalizePlace(rawNeedle);
+      if (!normNeedle) return null;
+
+      // 1) Try exact matches first (your original behavior)
+      const exact = allEvents.find(ev =>
         ev.type === "landmark" &&
         (
-          (ev.name && ev.name.toLowerCase().trim() === needle) ||
-          (ev.place && ev.place.toLowerCase().trim() === needle)
+          (ev.name && ev.name.toLowerCase().trim() === rawNeedle) ||
+          (ev.place && ev.place.toLowerCase().trim() === rawNeedle)
         )
       );
+      if (exact) return exact;
+
+      // 2) Fuzzy match across all landmarks
+      let best = null;
+      let bestScore = Infinity;
+
+      allEvents.forEach(ev => {
+        if (ev.type !== "landmark") return;
+
+        const normName  = normalizePlace(ev.name || "");
+        const normPlace = normalizePlace(ev.place || "");
+        if (!normName && !normPlace) return;
+
+        const d1 = normName ? levenshtein(normNeedle, normName) : Infinity;
+        const d2 = normPlace ? levenshtein(normNeedle, normPlace) : Infinity;
+        const score = Math.min(d1, d2);
+
+        if (score < bestScore) {
+          bestScore = score;
+          best = ev;
+        }
+      });
+
+      if (!best) return null;
+
+      // Threshold: allow a few typos relative to input length
+      const maxAllowed = Math.max(2, Math.floor(normNeedle.length * 0.4));
+      return (bestScore <= maxAllowed) ? best : null;
     }
+
 
     // Collect form data
     function collectEventData() {

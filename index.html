@@ -946,7 +946,19 @@
   <label class="block text-sm font-medium mb-1">Location</label>
   <input type="text" id="eventPlace" class="w-full border rounded-lg p-2"
          placeholder="e.g. EITC Atrium" required>
+
+  <!-- Fuzzy suggestion row -->
+  <div id="eventPlaceSuggestion" class="mt-1 text-xs text-gray-500 hidden">
+    Did you mean
+    <button type="button"
+            id="eventPlaceSuggestionBtn"
+            class="underline text-umMaroon font-semibold">
+      <span id="eventPlaceSuggestionText"></span>
+    </button>
+    ?
+  </div>
 </div>
+
 
 
               <div class="grid grid-cols-2 gap-3">
