@@ -154,10 +154,92 @@
         opacity: 1
       }
     }
+
+    /* --- My Friends row: fixed-width flex strip, scrolls inside only --- */
+    /* Allow the right grid column to shrink instead of stretching the page */
+    #right-panel {
+      min-width: 0;
+    }
+
+    /* Also allow the Social "My Friends" card to shrink inside that column */
+    #friendsSection {
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    /* Horizontal flex row that never expands the page */
+    #friendsRow {
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;         /* single row only */
+      gap: 0.75rem;
+      overflow-x: auto;          /* scroll happens inside this row */
+      overflow-y: hidden;
+      padding-bottom: 0.25rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Each friend card: fixed width, cannot stretch layout */
+    #friendsRow > article {
+      flex: 0 0 220px;           /* fixed card width */
+      max-width: 220px;
+      min-width: 0;              /* stops intrinsic width from pushing container */
+    }
+
+    /* scrollbars just for this row */
+    #friendsRow::-webkit-scrollbar {
+      height: 8px;
+    }
+    #friendsRow::-webkit-scrollbar-thumb {
+      background-color: rgba(100, 100, 100, 0.25);
+      border-radius: 4px;
+    }
+    #friendsRow::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(100, 100, 100, 0.45);
+    }
+    #friendsRow::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #messagesPane {
+      width: 100%;
+      max-width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .message-thread {
+      overflow: hidden;
+    }
+
+    .message-thread-preview,
+    .message-thread p,
+    .message-thread .text-xs {
+      white-space: normal !important;
+      overflow-wrap: break-word;
+    }
+
+    /* FIX: Each message preview card */
+    .message-thread-preview {
+      white-space: normal !important;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      border: 1px solid #e2e8f0;
+      padding: 10px;
+      border-radius: 10px;
+      background: white;
+    }
+
+    .message-thread .truncate {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 160px; /* or any width you like */
+    }
   </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-[#fffaf2] via-white to-[#fffaf2] text-slate-800">
+<body class="min-h-screen bg-gradient-to-b from-[#fffaf2] via-white to-[#fffaf2] text-slate-800 overflow-x-hidden">
   <!-- HEADER THAT WILL STAY AT THE TOP -->
    <nav id="topNav" class="w-full sticky top-0 bg-umMaroon text-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -313,7 +395,7 @@
         
         <!-- SOCIAL / FRIENDS PAGE -->
         <section id="social-page" class="page-section hidden">
-          <div class="grid grid-cols-1 xl:grid-cols-[3fr,1.2fr] gap-6">
+          <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,3fr),minmax(0,1.2fr)] gap-6">
             <!-- LEFT: main friends content -->
             <div class="space-y-6">
               <!-- Top row: title + tabs -->
@@ -335,69 +417,80 @@
                   </div>
                 </div>
               
+                <!-- Tabs -->
                 <nav class="flex flex-wrap gap-2 text-sm mt-4 md:mt-5">
-                  <button class="px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold">
-                    My Friends <span class="ml-1 text-xs bg-white/80 px-2 py-0.5 rounded-full">120</span>
-                  </button>
-                  <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
-                    Friend Requests <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">5</span>
-                  </button>
-                  <button class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
+                  <button
+                  class="social-tab px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold"
+                  data-tab="friends"
+                >
+                  My Friends
+                  <span id="friendsCount"
+                        class="ml-1 text-xs bg-white/80 px-2 py-0.5 rounded-full">120</span>
+                </button>
+                <button
+                  class="social-tab px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200"
+                  data-tab="requests"
+                >
+                  Friend Requests
+                  <span id="friendReqCount"
+                        class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">3</span>
+                </button>
+                  <button
+                    class="social-tab px-3 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    data-tab="groups"
+                  >
                     Groups <span class="ml-1 text-xs bg-white px-2 py-0.5 rounded-full">3</span>
                   </button>
                 </nav>
               
               </header>
 
-              <!-- Friend cards row -->
-              <section class="bg-white rounded-xl shadow p-4">
-                <h2 class="text-sm font-semibold text-slate-600 mb-3">My Friends</h2>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                  <!-- Friend card 1 -->
-                  <article class="border border-slate-200 rounded-lg p-3 flex flex-col justify-between">
-                    <div>
-                      <p class="font-semibold text-slate-900">Rodrigo</p>
-                      <p class="text-xs text-slate-500">Joined 2 events</p>
-                    </div>
-                    <button class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-2 py-1 rounded-full">
-                      Invite (UMES)
-                    </button>
-                  </article>
-
-                  <!-- Friend card 2 -->
-                  <article class="border border-slate-200 rounded-lg p-3 flex flex-col justify-between">
-                    <div>
-                      <p class="font-semibold text-slate-900">Will</p>
-                      <p class="text-xs text-slate-500">Shared 5 events</p>
-                    </div>
-                    <button class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-2 py-1 rounded-full">
-                      Invite (CMSS)
-                    </button>
-                  </article>
-
-                  <!-- Friend card 3 -->
-                  <article class="border border-slate-200 rounded-lg p-3 flex flex-col justify-between">
-                    <div>
-                      <p class="font-semibold text-slate-900">Vassily</p>
-                      <p class="text-xs text-slate-500">Shared photos of “Runners”</p>
-                    </div>
-                    <button class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-2 py-1 rounded-full">
-                      Invite (UMIEEE)
-                    </button>
-                  </article>
-
-                  <!-- Friend card 4 -->
-                  <article class="border border-slate-200 rounded-lg p-3 flex flex-col justify-between">
-                    <div>
-                      <p class="font-semibold text-slate-900">Jamal</p>
-                      <p class="text-xs text-slate-500">Shared “Runners” event</p>
-                    </div>
-                    <button class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-2 py-1 rounded-full">
-                      Invite (MMECS)
-                    </button>
-                  </article>
+              <!-- FRIENDS TAB CONTENT -->
+              <section id="friendsSection" class="bg-white rounded-xl shadow p-4">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                  <h2 class="text-sm font-semibold text-slate-600">My Friends</h2>
+              
+                  <!-- Search in friends -->
+                  <div class="w-full max-w-xs ml-auto">
+                    <label class="sr-only" for="friendsSearch">Search friends</label>
+                    <input
+                      id="friendsSearch"
+                      type="text"
+                      class="w-full rounded-full border border-slate-200 px-3 py-1.5 text-sm
+                             focus:outline-none focus:ring-1 focus:ring-umGold focus:border-umGold"
+                      placeholder="Search friends..."
+                    />
+                  </div>
                 </div>
+              
+                <!-- Single-row, horizontally scrollable friends list -->
+                <div
+                  id="friendsRow"
+                  class="w-full text-sm"
+                >
+                  <!-- Filled by JavaScript -->
+                </div>
+              </section>
+
+              <!-- FRIEND REQUESTS TAB CONTENT -->
+              <section id="friendRequestsSection" class="bg-white rounded-xl shadow p-4 hidden">
+                <h2 class="text-sm font-semibold text-slate-600 mb-3">Friend Requests</h2>
+
+                <div id="friendRequestsList" class="space-y-3 text-sm">
+                  <!-- Filled by JavaScript -->
+                </div>
+              </section>
+
+              <!-- GROUPS TAB CONTENT -->
+              <section id="groupsSection" class="bg-white rounded-xl shadow p-4 hidden">
+                <h2 class="text-sm font-semibold text-slate-600 mb-2">Groups</h2>
+                <p class="text-sm text-slate-500">
+                  UMIEEE
+                  <br />
+                  Robotics Club
+                  <br />
+                  Computer Science Society
+                </p>
               </section>
 
               <!-- Recent activity + suggestions + chart -->
@@ -435,9 +528,6 @@
                       <button class="px-3 py-1 rounded-full border border-umGold text-umMaroon bg-umGold/10 font-semibold">
                         Add Friend
                       </button>
-                      <button class="px-3 py-1 rounded-full border border-slate-300 hover:bg-slate-100">
-                        Request to join group
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -464,7 +554,7 @@
 
             <!-- RIGHT: messages column -->
             <aside class="space-y-4">
-              <div class="bg-white rounded-xl shadow p-4 space-y-3">
+              <div id="messagesPane" class="bg-white rounded-xl shadow p-4 space-y-3">
                 <h2 class="text-sm font-semibold text-slate-600 mb-1">Messages</h2>
 
                 <!-- Message 1 -->
