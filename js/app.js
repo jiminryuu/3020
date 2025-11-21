@@ -1250,6 +1250,7 @@ function sortEventsByDate(events) {
     let createMarker;
     let placeSetByLandmark = false;
     let pendingEventData = null;
+    let createEventImageDataUrl = null;
 
 
     function fuzzCoords(baseLat, baseLng) {
@@ -1497,7 +1498,22 @@ function sortEventsByDate(events) {
       const maxAllowed = Math.max(2, Math.floor(normNeedle.length * 0.4));
       return (bestScore <= maxAllowed) ? best : null;
     }
+    //image handler
+  $('#eventImageInput').on('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    const reader = new FileReader();
+    reader.onload = function (ev) {
+      // Store the data URL for use in the event object
+      createEventImageDataUrl = ev.target.result;
+
+      // Update the preview image on the form
+      $('#eventImagePreview').attr('src', createEventImageDataUrl);
+    };
+
+    reader.readAsDataURL(file);
+  });
 
     // Collect form data
     function collectEventData() {
@@ -1508,7 +1524,8 @@ function sortEventsByDate(events) {
         place: $('#eventPlace').val(),
         category: $('#eventCategory').val(),
         price: Number($('#eventPrice').val()),
-        image: $('#eventImage').val(),
+        //image: $('#eventImage').val(),
+         image: createEventImageDataUrl || PLACEHOLDER_IMG,
         description: $('#eventDesc').val(),
         lat: parseFloat($('#eventLat').val()),
         lng: parseFloat($('#eventLng').val()),
