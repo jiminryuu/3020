@@ -27,7 +27,7 @@ $(function () {
       type: "event",
       name: "Computer Science Club Meetup",
       date: "Nov 15, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "EITC Atrium",
       category: "Social",
       price: 0,
@@ -41,9 +41,9 @@ $(function () {
       type: "event",
       name: "U of M Career Fair",
       date: "Nov 20, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "UMSU University Centre",
-      category: "Jobs",
+      category: "Career Events",
       price: 0,
       lat: 49.809108826518546,
       lng: -97.13425395814758,
@@ -55,7 +55,7 @@ $(function () {
       type: "event",
       name: "Science Faculty Coffee Chat",
       date: "Nov 25, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Armes Building Lobby",
       category: "By Faculty",
       price: 0,
@@ -67,11 +67,11 @@ $(function () {
     {
       id: 4,
       type: "event",
-      name: "Campus Fun Run 5K",
+      name: "Campus Social Run 5K",
       date: "Nov 30, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Main Quad",
-      category: "Fun",
+      category: "Social",
       price: 10,
       lat: 49.80876956369388,
       lng: -97.13203300087609,
@@ -83,7 +83,7 @@ $(function () {
       type: "event",
       name: "Engineering Project Showcase",
       date: "Dec 3, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Engineering Building",
       category: "By Faculty",
       price: 0,
@@ -97,23 +97,23 @@ $(function () {
       type: "event",
       name: "Resume & LinkedIn Workshop",
       date: "Dec 6, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "Dafoe Library - 2nd Floor Study Area",
-      category: "Co-op",
+      category: "Career Events",
       price: 0,
       lat: 49.81018198918353,
       lng: -97.13142145152993,
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-      description: "Hands-on polishing session for co-op applications."
+      description: "Hands-on polishing session for Career Events applications."
     },
     {
       id: 7,
       type: "event",
       name: "Tech Job Fair: Startup Edition",
       date: "Dec 10, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "University Centre 202",
-      category: "Jobs",
+      category: "Career Events",
       price: 0,
       lat: 49.80937538849832,
       lng: -97.13443600975893,
@@ -125,9 +125,9 @@ $(function () {
       type: "event",
       name: "Student Art Showcase",
       date: "Dec 12, 2025",
-      time: "6:00 PM – 8:00 PM",
+      time: "6:00 PM - 8:00 PM",
       place: "ART Lab",
-      category: "Fun",
+      category: "Social",
       price: 5,
       lat: 49.80760289685259,
       lng: -97.13200775285695,
@@ -140,9 +140,9 @@ $(function () {
       type: "event",
       name: "Late-Night Study Jam",
       date: "Dec 14, 2025",
-      time: "7:00 PM – 11:00 PM",
-      place: "Dafoe Library – Main Floor",
-      category: "Study",
+      time: "7:00 PM - 11:00 PM",
+      place: "Dafoe Library - Main Floor",
+      category: "Social",
       price: 0,
       lat: 49.8102931969276,
       lng: -97.13194199851485,
@@ -154,7 +154,7 @@ $(function () {
       type: "event",
       name: "Law Faculty Mixer",
       date: "Jan 10, 2026",
-      time: "4:00 PM – 6:00 PM",
+      time: "4:00 PM - 6:00 PM",
       place: "Robson Hall Atrium",
       category: "By Faculty",
       price: 0,
@@ -168,7 +168,7 @@ $(function () {
       type: "event",
       name: "St. John’s College Holiday Dinner",
       date: "Dec 18, 2025",
-      time: "6:00 PM – 9:00 PM",
+      time: "6:00 PM - 9:00 PM",
       place: "St. John’s College Dining Hall",
       category: "Social",
       price: 15,
@@ -182,9 +182,9 @@ $(function () {
       type: "event",
       name: "Campus Nature Walk",
       date: "Jan 5, 2026",
-      time: "2:00 PM – 3:30 PM",
+      time: "2:00 PM - 3:30 PM",
       place: "Red River Passage",
-      category: "Fun",
+      category: "Social",
       price: 0,
       lat: 49.80638511205691,
       lng: -97.1344229473885,
@@ -196,9 +196,9 @@ $(function () {
       type: "event",
       name: "Science Lab Safety Workshop",
       date: "Jan 12, 2026",
-      time: "1:00 PM – 3:00 PM",
-      place: "Buller Building – Room 316",
-      category: "Academic",
+      time: "1:00 PM - 3:00 PM",
+      place: "Buller Building - Room 316",
+      category: "By Faculty",
       price: 0,
       lat: 49.81068005596369,   // +0.00020 north
       lng: -97.1331811892718,   // +0.00030 east
@@ -210,9 +210,9 @@ $(function () {
       type: "event",
       name: "Education Faculty Book Swap",
       date: "Jan 22, 2026",
-      time: "12:00 PM – 3:00 PM",
+      time: "12:00 PM - 3:00 PM",
       place: "Education Building Lobby",
-      category: "Fun",
+      category: "Social",
       price: 0,
       lat: 49.80855924544929,    // +0.00030 north
       lng: -97.1366558846671,    // +0.00030 east
@@ -224,8 +224,8 @@ $(function () {
       type: "event",
       name: "UMSU Winter Kickoff Concert",
       date: "Jan 25, 2026",
-      time: "7:00 PM – 11:00 PM",
-      place: "University Centre – Main Stage",
+      time: "7:00 PM - 11:00 PM",
+      place: "University Centre - Main Stage",
       category: "Social",
       price: 20,
       lat: 49.80964798942664,    // +0.00030 north
@@ -238,9 +238,9 @@ $(function () {
       type: "event",
       name: "Bison Athletics Fan Night",
       date: "Jan 29, 2026",
-      time: "5:00 PM – 9:00 PM",
+      time: "5:00 PM - 9:00 PM",
       place: "Investors Group Athletic Centre",
-      category: "Athletics",
+      category: "Social",
       price: 5,
       lat: 49.809370962072546,   // +0.00030 north
       lng: -97.13939121295969,   // +0.00030 east
@@ -474,6 +474,14 @@ $(function () {
       lat: "49.8066761108781", lng: "-97.13253517122608",
       description: "Campus maintenance and operations."
     },
+    {
+        id: 233, type: "landmark",
+        name: "Drake Centre",
+        place: "Drake Centre",
+        category: "Landmark",
+        lat: "49.808066", lng: "-97.130135",
+        description: "Asper School of Business and Transport Institute."
+    },
 
     // Region 4 — Athletics Zone
     {
@@ -555,10 +563,10 @@ function sortEventsByDate(events) {
     if (b.type !== "event") return -1;
 
     // Extract ONLY the start time
-    // Handles: "-", "–", "—"
+    // Handles: "-", "-", "—"
     const extractStartTime = (timeStr) => {
       if (!timeStr) return "12:00 AM"; // fallback so date still parses
-      return timeStr.split(/[-–—]/)[0].trim();
+      return timeStr.split(/[--—]/)[0].trim();
     };
 
     // Build full datetime strings that JS CAN parse
@@ -585,6 +593,10 @@ function sortEventsByDate(events) {
   renderAll(allEvents);
   bindUI();
   renderRegistered();
+
+  // Initial render for Social page
+  // renderFriendsGrid();
+  // renderFriendRequests();
 
 
   // ========================================================
@@ -1036,6 +1048,129 @@ function sortEventsByDate(events) {
     }
   });
 
+    // ---------- Friends + Friend Requests (Social tabs) ----------
+
+    const FRIENDS = [
+      { id: "rodrigo", name: "Rodrigo", subtitle: "Joined 2 events", tag: "Invite (UMES)" },
+      { id: "will",    name: "Will",    subtitle: "Shared 5 events", tag: "Invite (CMSS)" },
+      { id: "vassily", name: "Vassily", subtitle: "Shared photos of “Runners”", tag: "Invite (UMIEEE)" },
+      { id: "jamal",   name: "Jamal",   subtitle: "Shared “Runners” event",      tag: "Invite (MMECS)" },
+    ];
+    
+    const FRIENDS_BASE_TOTAL = 120 - FRIENDS.length;
+
+    let FRIEND_REQUESTS = [
+      { id: "Ji Min", name: "Ji Min", subtitle: "2 mutual events • Robotics Club" },
+      { id: "humberto", name: "Humberto",   subtitle: "1 shared event • “Runners” photos" },
+      { id: "henry",  name: "Henry",    subtitle: "Recently joined your event" },
+    ];
+    
+    function updateSocialBadges() {
+      const $friendsBadge = $("#friendsCount");
+      if ($friendsBadge.length) {
+        // Display a larger "total friends" number by adding a base offset
+        $friendsBadge.text(FRIENDS_BASE_TOTAL + FRIENDS.length);
+      }
+
+      const $reqBadge = $("#friendReqCount");
+      if ($reqBadge.length) {
+        $reqBadge.text(FRIEND_REQUESTS.length);
+      }
+    }
+
+    function renderFriendsGrid() {
+      const $grid = $("#friendsRow");
+      if (!$grid.length) return;
+    
+      // Optional search filter by friend name
+      const query = ($("#friendsSearch").val() || "").toLowerCase().trim();
+    
+      let visibleFriends = FRIENDS;
+      if (query) {
+        visibleFriends = FRIENDS.filter(friend =>
+          friend.name.toLowerCase().includes(query)
+        );
+      }
+    
+      if (!visibleFriends.length) {
+        $grid.html(`
+          <p class="text-sm text-slate-500">
+            No friends match your search. Try a different name.
+          </p>
+        `);
+        updateSocialBadges();
+        return;
+      }
+    
+      $grid.empty();
+      visibleFriends.forEach(friend => {
+        $grid.append(`
+          <article
+            class="flex flex-col justify-between bg-white border border-slate-200 rounded-lg p-3
+                   h-full min-w-0"
+          >
+            <div>
+              <p class="font-semibold text-slate-900 truncate">${friend.name}</p>
+              <p class="text-xs text-slate-500">${friend.subtitle}</p>
+            </div>
+            <button
+              class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-3 py-1 rounded-full"
+              type="button"
+            >
+              Message
+            </button>
+          </article>
+        `);
+      });
+    
+      updateSocialBadges();
+    }
+
+  
+    function renderFriendRequests() {
+      const $list = $("#friendRequestsList");
+      if (!$list.length) return;
+  
+      $list.empty();
+  
+      if (!FRIEND_REQUESTS.length) {
+        $list.html(`
+          <p class="text-sm text-slate-500">
+            No pending requests right now. 🎉
+          </p>
+        `);
+        return;
+      }
+  
+      FRIEND_REQUESTS.forEach(req => {
+        $list.append(`
+          <div
+            class="flex items-center justify-between border border-slate-200 rounded-lg p-3 bg-slate-50/60"
+          >
+            <div>
+              <p class="font-semibold text-slate-900">${req.name}</p>
+              <p class="text-xs text-slate-500">${req.subtitle}</p>
+            </div>
+            <div class="flex gap-2 text-xs">
+              <button
+                class="btn-accept-request px-3 py-1 rounded-full bg-umGold text-umMaroon font-semibold"
+                data-id="${req.id}"
+              >
+                Accept
+              </button>
+              <button
+                class="btn-reject-request px-3 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200"
+                data-id="${req.id}"
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        `);
+      });
+      updateSocialBadges();
+    }
+
   // ========================================================
   // ================= [ ACHIEVEMENTS PAGE ] =================
   // ========================================================
@@ -1073,6 +1208,29 @@ function sortEventsByDate(events) {
   (function initCreatePage() {
     let createMap;
     let createMarker;
+    let placeSetByLandmark = false;
+    let pendingEventData = null;
+
+
+    function fuzzCoords(baseLat, baseLng) {
+      const MAX_OFFSET = 0.00010; // ~20–30m-ish on campus, tweak as needed
+      const latOffset = (Math.random() * 2 - 1) * MAX_OFFSET;
+      const lngOffset = (Math.random() * 2 - 1) * MAX_OFFSET;
+
+      let lat = baseLat + latOffset;
+      let lng = baseLng + lngOffset;
+
+      // Clamp inside campus bounds just in case
+      const minLat = MAP_BOUNDS[0][0];
+      const maxLat = MAP_BOUNDS[1][0];
+      const minLng = MAP_BOUNDS[0][1];
+      const maxLng = MAP_BOUNDS[1][1];
+
+      lat = Math.min(Math.max(lat, minLat), maxLat);
+      lng = Math.min(Math.max(lng, minLng), maxLng);
+
+      return { lat, lng };
+    }
 
     function initCreateMap() {
       createMap = L.map('createMap', {
@@ -1104,11 +1262,205 @@ function sortEventsByDate(events) {
         setTimeout(() => createMap.invalidateSize(), 100);
       }, 200);
     });
+(function initLandmarkSelect() {
+      const $select = $('#landmarkSelect');
+      if (!$select.length) return;
+
+      // Use allEvents landmarks that actually have coordinates
+      const landmarks = allEvents.filter(ev =>
+        ev.type === 'landmark' && ev.lat && ev.lng
+      );
+     landmarks.sort((a, b) => a.name.localeCompare(b.name));
+
+      // Populate dropdown
+      landmarks.forEach(lm => {
+        $select.append(
+          $('<option>', {
+            value: lm.id,
+            text: lm.name
+          })
+        );
+      });
+
+      $select.on('change', function () {
+        const id = Number($(this).val());
+        if (!id) return;
+
+        const lm = allEvents.find(ev => ev.id === id);
+        if (!lm) return;
+
+        const baseLat = parseFloat(lm.lat);
+        const baseLng = parseFloat(lm.lng);
+        if (isNaN(baseLat) || isNaN(baseLng)) return;
+
+        const { lat, lng } = fuzzCoords(baseLat, baseLng);
+
+        if (createMarker) {
+          createMap.removeLayer(createMarker);
+        }
+        createMarker = L.marker([lat, lng]).addTo(createMap);
+        createMap.setView([lat, lng], 17);
+
+        // Set the hidden event coordinates to the fuzzed location
+        $('#eventLat').val(lat.toFixed(6));
+        $('#eventLng').val(lng.toFixed(6));
+
+        // If location text is empty, fill it from the landmark
+        
+          $('#eventPlace').val(lm.place || lm.name);
+          placeSetByLandmark = true;
+        
+      });
+    })();
+ const $eventPlace = $('#eventPlace');
+    const $suggestWrap = $('#eventPlaceSuggestion');
+    const $suggestText = $('#eventPlaceSuggestionText');
+    const $suggestBtn  = $('#eventPlaceSuggestionBtn');
+
+    $('#eventPlace').on('input', function () {
+      placeSetByLandmark = false;
+
+      const val = this.value;
+      // If field is empty or too short, hide suggestion
+      if (!val || val.trim().length < 2) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      const lm = findLandmarkByName(val);
+      if (!lm) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      const displayName = lm.place || lm.name || "";
+      if (!displayName) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      // If the user has already basically typed the name, don't nag
+      if (displayName.toLowerCase().trim() === val.toLowerCase().trim()) {
+        $suggestWrap.addClass('hidden');
+        return;
+      }
+
+      // Show suggestion
+      $suggestText.text(displayName);
+      $suggestWrap.removeClass('hidden');
+
+      // Attach click handler to apply it
+      $suggestBtn.off('click').on('click', function () {
+        // Fill the input
+        $eventPlace.val(displayName);
+        $suggestWrap.addClass('hidden');
+        placeSetByLandmark = true;
+
+        // Optionally: also move the map marker & set coords, with fuzzing
+        const baseLat = parseFloat(lm.lat);
+        const baseLng = parseFloat(lm.lng);
+        if (!isNaN(baseLat) && !isNaN(baseLng) && createMap) {
+          const { lat, lng } = fuzzCoords(baseLat, baseLng);
+
+          if (createMarker) {
+            createMap.removeLayer(createMarker);
+          }
+          createMarker = L.marker([lat, lng]).addTo(createMap);
+          createMap.setView([lat, lng], 17);
+
+          $('#eventLat').val(lat.toFixed(6));
+          $('#eventLng').val(lng.toFixed(6));
+        }
+      });
+    });
+    // Collect form data
+    // Look up a landmark from the typed place name
+    // Normalize a place/name for fuzzy matching
+    function normalizePlace(str) {
+      if (!str) return "";
+      return str
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/\b(building|hall|centre|center|college|library|the)\b/g, "") // optional stop-words
+        .replace(/[^a-z0-9]/g, "") // strip punctuation/whitespace
+        .trim();
+    }
+
+    // Simple Levenshtein distance
+    function levenshtein(a, b) {
+      const m = a.length;
+      const n = b.length;
+      if (m === 0) return n;
+      if (n === 0) return m;
+
+      const dp = new Array(n + 1);
+      for (let j = 0; j <= n; j++) dp[j] = j;
+
+      for (let i = 1; i <= m; i++) {
+        let prev = dp[0];
+        dp[0] = i;
+        for (let j = 1; j <= n; j++) {
+          const temp = dp[j];
+          if (a[i - 1] === b[j - 1]) {
+            dp[j] = prev; // no change
+          } else {
+            dp[j] = 1 + Math.min(prev, dp[j], dp[j - 1]); // sub, del, ins
+          }
+          prev = temp;
+        }
+      }
+      return dp[n];
+    }
+
+    // Look up a landmark from the typed place name (fuzzy)
+    function findLandmarkByName(name) {
+      if (!name) return null;
+
+      const rawNeedle = name.toLowerCase().trim();
+      const normNeedle = normalizePlace(rawNeedle);
+      if (!normNeedle) return null;
+
+      // 1) Try exact matches first (your original behavior)
+      const exact = allEvents.find(ev =>
+        ev.type === "landmark" &&
+        (
+          (ev.name && ev.name.toLowerCase().trim() === rawNeedle) ||
+          (ev.place && ev.place.toLowerCase().trim() === rawNeedle)
+        )
+      );
+      if (exact) return exact;
+
+      // 2) Fuzzy match across all landmarks
+      let best = null;
+      let bestScore = Infinity;
+
+      allEvents.forEach(ev => {
+        if (ev.type !== "landmark") return;
+
+        const normName  = normalizePlace(ev.name || "");
+        const normPlace = normalizePlace(ev.place || "");
+        if (!normName && !normPlace) return;
+
+        const d1 = normName ? levenshtein(normNeedle, normName) : Infinity;
+        const d2 = normPlace ? levenshtein(normNeedle, normPlace) : Infinity;
+        const score = Math.min(d1, d2);
+
+        if (score < bestScore) {
+          bestScore = score;
+          best = ev;
+        }
+      });
+
+      if (!best) return null;
+
+      // Threshold: allow a few typos relative to input length
+      const maxAllowed = Math.max(2, Math.floor(normNeedle.length * 0.4));
+      return (bestScore <= maxAllowed) ? best : null;
+    }
+
 
     // Collect form data
     function collectEventData() {
-         
-         
       return {
         name: $('#eventName').val(),
         date: convertDate($('#eventDate').val()),
@@ -1123,6 +1475,86 @@ function sortEventsByDate(events) {
         type: 'event',
       };
     }
+
+    // Approximate distance in meters between two lat/lng points
+function distanceCalc(lat1, lng1, lat2, lng2) {
+  const dLat = lat1 - lat2;
+  const dLng = lng1 - lng2;
+  return Math.sqrt(dLat * dLat + dLng * dLng);
+}
+
+function findNearestLandmark(lat, lng, excludeId) {
+  let nearest = null;
+  let nearestDist = Infinity;
+
+  allEvents.forEach(ev => {
+    if (ev.type !== 'landmark') return;
+    if (excludeId && ev.id === excludeId) return;
+    if (!ev.lat || !ev.lng) return;
+
+    const d = distanceCalc(
+      lat,
+      lng,
+      parseFloat(ev.lat),
+      parseFloat(ev.lng)
+    );
+
+    if (d < nearestDist) {
+      nearestDist = d;
+      nearest = ev;
+    }
+  });
+
+  return { landmark: nearest, distance: nearestDist };
+}
+
+function checkLocationMismatch(data) {
+  // Optional: only warn if user typed manually
+  // if (!data.place || placeSetByLandmark) return { shouldWarn: false };
+
+  if (!data.place) return { shouldWarn: false };
+
+  const typedLm = findLandmarkByName(data.place);
+  if (!typedLm || !typedLm.lat || !typedLm.lng) {
+    return { shouldWarn: false };
+  }
+
+  if (isNaN(data.lat) || isNaN(data.lng)) {
+    return { shouldWarn: false };
+  }
+
+  const typedLat = parseFloat(typedLm.lat);
+  const typedLng = parseFloat(typedLm.lng);
+
+  // distance from marker to typed landmark
+  const distToTyped = distanceCalc(data.lat, data.lng, typedLat, typedLng);
+  const THRESHOLD = 0.001; // ~100–200 m depending on latitude
+
+
+
+  // Now look for closest *other* landmark
+  const { landmark: nearestOther, distance: distToNearestOther } =
+    findNearestLandmark(data.lat, data.lng, typedLm.id);
+
+  const result = {
+    shouldWarn: true,
+    typedLandmark: typedLm,
+    distanceToTyped: distToTyped,
+    suggestedLandmark: null,
+    distanceToSuggested: null,
+  };
+
+  if (nearestOther && distToNearestOther < distToTyped) {
+    result.suggestedLandmark = nearestOther;
+    result.distanceToSuggested = distToNearestOther;
+  }
+    if (distToTyped <= THRESHOLD && distToNearestOther > distToTyped) {
+    // close enough, no warning
+    return { shouldWarn: false };
+  }
+  return result;
+}
+
     function convertDate(dateStr)
     {
         if(!dateStr instanceof String){
@@ -1184,15 +1616,8 @@ function sortEventsByDate(events) {
     });
 
     // Submit handler
-    $('#createEventForm').on('submit', function (e) {
-      e.preventDefault();
-      const data = collectEventData();
-
-      if (!data.lat || !data.lng) {
-        alert('Please click on the map to set a location.');
-        return;
-      }
-
+    // Actually create + save the event
+    function finalizeCreate(data) {
       data.id = Date.now(); // unique ID
       allEvents.push(data);
       allEvents = sortEventsByDate(allEvents);
@@ -1204,7 +1629,66 @@ function sortEventsByDate(events) {
         createMap.removeLayer(createMarker);
         createMarker = null;
       }
+    }
+
+    // Submit handler
+    $('#createEventForm').on('submit', function (e) {
+      e.preventDefault();
+      const data = collectEventData();
+
+      if (!data.lat || !data.lng || isNaN(data.lat) || isNaN(data.lng)) {
+        alert('Please click on the map to set a location.');
+        return;
+      }
+
+      const mismatch = checkLocationMismatch(data);
+
+      if (mismatch.shouldWarn) {
+        pendingEventData = data;
+
+        // Typed landmark (from the location name)
+        const typedName =
+        (mismatch.typedLandmark && (mismatch.typedLandmark.place || mismatch.typedLandmark.name)) ||
+        data.place;
+
+        $('#locWarnPlaceName').text(typedName);
+
+        // Optional suggestion: closer landmark based on marker position
+        if (mismatch.suggestedLandmark) {
+            const suggestedName =
+            mismatch.suggestedLandmark.place || mismatch.suggestedLandmark.name;
+            $('#locWarnSuggestionText')
+            .text(`Your marker is much closer to "${suggestedName}".`);
+            $('#locWarnSuggestion').removeClass('hidden');
+        } else {
+            $('#locWarnSuggestion').addClass('hidden');
+        }
+
+        $('#locationWarningModal').removeClass('hidden');
+        $('body').addClass('modal-open');
+        return;
+        }
+
+      // No mismatch -> create immediately
+      finalizeCreate(data);
     });
+
+    // Location warning modal buttons
+    $('#locWarnCancel, #locWarnClose').on('click', function () {
+      pendingEventData = null;
+      $('#locationWarningModal').addClass('hidden');
+      $('body').removeClass('modal-open');
+    });
+
+    $('#locWarnSubmit').on('click', function () {
+      if (pendingEventData) {
+        finalizeCreate(pendingEventData);
+        pendingEventData = null;
+      }
+      $('#locationWarningModal').addClass('hidden');
+      $('body').removeClass('modal-open');
+    });
+
   })();
 
   // ========================================================
@@ -1227,12 +1711,29 @@ function showProfileSection(id) {
   function bindUI() {
     // Navigation
     $(document).on('click', '.page-link', function () {
-      showSection($(this).data('target'));
+      const target = $(this).data('target');
+      showSection(target);
+
+      // When we open the Social page, make sure all its widgets render
+      if (target === 'social-page') {
+        // friends grid + pending requests
+        renderFriendsGrid();
+        renderFriendRequests();
+
+        // most popular events chart (respect current filter)
+        const mode = $('#popularFilter').val() || 'everyone';
+        renderPopularEvents(mode);
+      }
     });
 
     // Filters / Search
     $(document).on('change', '.filter', applyFilters);
     $('#searchBar').on('input', applyFilters);
+
+    // Social: live search within My Friends
+    $(document).on('input', '#friendsSearch', function () {
+      renderFriendsGrid();
+    });
 
     // Carousel
     $('#nextBtn').click(() => $('#eventCarousel').animate({ scrollLeft: '+=320' }, 260));
@@ -1305,6 +1806,60 @@ function showProfileSection(id) {
       } else {
         centerOnMap(id);
       }
+    });
+
+    // -------- Social page: tab switching --------
+    $(document).on("click", ".social-tab", function () {
+      const tab = $(this).data("tab");
+
+      // Update button styles
+      $(".social-tab")
+        .removeClass("bg-umGold text-umMaroon font-semibold")
+        .addClass("bg-slate-100 text-slate-700");
+      $(this)
+        .removeClass("bg-slate-100 text-slate-700")
+        .addClass("bg-umGold text-umMaroon font-semibold");
+
+      // Show/hide sections
+      $("#friendsSection").toggleClass("hidden", tab !== "friends");
+      $("#friendRequestsSection").toggleClass("hidden", tab !== "requests");
+      $("#groupsSection").toggleClass("hidden", tab !== "groups");
+
+      // Make sure the right content is drawn for the active tab
+      if (tab === "friends") {
+        renderFriendsGrid();
+      } else if (tab === "requests") {
+        renderFriendRequests();
+      }
+    });
+
+    // -------- Social page: Accept / Reject friend requests --------
+    $(document).on("click", ".btn-accept-request", function () {
+      const id = $(this).data("id");
+      const idx = FRIEND_REQUESTS.findIndex(r => r.id === id);
+      if (idx === -1) return;
+
+      const req = FRIEND_REQUESTS.splice(idx, 1)[0];
+
+      // Add to friends list
+      FRIENDS.push({
+        id: req.id,
+        name: req.name,
+        subtitle: req.subtitle,
+        tag: "Invite to event"
+      });
+
+      renderFriendsGrid();
+      renderFriendRequests();
+      showToast("Friend request accepted ✅");
+    });
+
+    $(document).on("click", ".btn-reject-request", function () {
+      const id = $(this).data("id");
+      FRIEND_REQUESTS = FRIEND_REQUESTS.filter(r => r.id !== id);
+
+      renderFriendRequests();
+      showToast("Friend request removed");
     });
 
     // Helper: center map on a given event marker safely
