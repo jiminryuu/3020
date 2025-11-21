@@ -594,6 +594,9 @@ function sortEventsByDate(events) {
   bindUI();
   renderRegistered();
 
+  // Load the profile description, picture, and user name
+  // renderProfileData();
+
   // Initial render for Social page
   // renderFriendsGrid();
   // renderFriendRequests();
@@ -1731,7 +1734,7 @@ function checkLocationMismatch(data) {
   // ========================================================
   // =================== [ PROFILE PAGE ] ====================
   // ========================================================
-function showProfileSection(id) {
+  function showProfileSection(id) {
     $('.profile_page-section').addClass('hidden');
     $('#' + id).removeClass('hidden');
 
@@ -1743,6 +1746,67 @@ function showProfileSection(id) {
     $btn.addClass('bg-umGold');
   }
 
+  function saveNewProfileData() {
+    const profileData = {
+      description: $('#profileDescription').val(),
+      preferredName: $('#profilePreferredName').val(),
+      profileImage: $('#profileImage').attr('src')
+    }
+    localStorage.setItem('profileData', JSON.stringify(profileData));
+    renderProfileData();
+  }
+
+  function discardNewProfileData() {
+    const data = JSON.parse(localStorage.getItem('profileData') || '{}');
+
+    if (data.preferredName !== undefined) {
+      $('#profilePreferredName').val(data.preferredName);
+    } else {
+      $('#profilePreferredName').val('Hassan Khan');
+    }
+
+    if (data.description !== undefined) {
+      $('#profileDescription').val(data.description);
+    } else {
+      $('#profileDescription').val('I am a 4th year CS major.');
+    }
+
+    if (data.profileImage !== undefined) {
+      $('#profileImage').attr('src', data.profileImage);
+    } else {
+      $('#profileImage').attr('src', 'https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg');
+    }
+  }
+
+  function renderProfileData() {
+    const data = JSON.parse(localStorage.getItem('profileData') || '{}');
+
+    preferredName = 'Hassan Khan';
+    description = 'I am a 4th year CS major.';
+    image = 'https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg';
+
+    if (data.preferredName !== undefined) {
+      preferredName = data.preferredName;
+    }
+
+    if (data.description !== undefined) {
+      description = data.description;
+    }
+
+    if (data.profileImage !== undefined) {
+      image = data.profileImage;
+    }
+
+    $('#social_userName').text(preferredName);
+    $('#achievements_userName').text(preferredName);
+
+    $('#profileImage').attr('src', image);
+    $('#social_pImage').attr('src', image);
+    $('#header_pImage').attr('src', image);
+    $('#achievements_pImage').attr('src', image);
+
+    $('#profileDescription').val(description);
+  }
 
   // ---------- UI Bindings FOR ALL TO MODIFY----------
   function bindUI() {
@@ -1913,6 +1977,34 @@ function showProfileSection(id) {
     // Profile navigation
     $(document).on('click', '.profile_btn', function () {
       showProfileSection($(this).data('target'));
+    });
+
+    // Profile save and discard buttons
+    $('#profile_personalInfoPage').on('submit', function (event) {
+      event.preventDefault();
+      saveNewProfileData();
+      showToast('Data updated!')
+    });
+
+    $('#discardProfileChanges').on('click', function () {
+      discardNewProfileData();
+      showToast('Changes discarded!')
+    });
+
+    $('#profileImageInput').on('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e){
+        const data = JSON.parse(localStorage.getItem('profileData'));
+        data.profileImage = $('#profileImage').attr('src');
+        localStorage.setItem('profileData', JSON.stringify(data));
+
+        $('#profileImage').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(file);
     });
 
   }

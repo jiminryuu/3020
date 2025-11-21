@@ -261,6 +261,7 @@
         <button id="profileBtn" data-target="profile-page"
           class="page-link w-10 h-10 rounded-full bg-white text-umMaroon flex items-center justify-center shadow">
           <i class="fa-solid fa-user"></i>
+          <img id="header_pImage" src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full rounded-full" />
         </button>
       </div>
     </div>
@@ -408,11 +409,12 @@
                 <div class="flex items-center gap-4 mb-4">
                   <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-2xl text-slate-600 border border-slate-200">
                     <i class="fa-solid fa-user"></i>
+                    <img id="social_pImage" src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full rounded-full" />
                   </div>
               
                   <div>
                     <p class="text-xs uppercase tracking-wide text-slate-400">Social Dashboard</p>
-                    <h2 class="text-xl font-semibold text-slate-800 leading-tight">Hassan Khan</h2>
+                    <h2 id="social_userName" class="text-xl font-semibold text-slate-800 leading-tight">Hassan Khan</h2>
                     <p class="text-sm text-slate-500">Computer Science • U of M</p>
                   </div>
                 </div>
@@ -653,10 +655,11 @@
                 <div
                   class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-2xl text-slate-600 border border-slate-200">
                   <i class="fa-solid fa-user"></i>
+                  <img id="achievements_pImage" src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full rounded-full" />
                 </div>
                 <div>
                   <p class="text-xs uppercase tracking-wide text-slate-400">Event Master</p>
-                  <h3 class="text-xl font-bold text-slate-800">Hassan Khan</h3>
+                  <h3 id="achievements_userName" class="userName text-xl font-semibold text-slate-800">Hassan Khan</h3>
                   <p class="text-sm text-slate-500">Computer Science • U of M</p>
                 </div>
               </div>
@@ -1074,15 +1077,20 @@
             <!-- RIGHT SIDE -->
             <div class="p-6 space-y-6 h-full min-h-[400px] w-full min-w-[450px]">
               <!-- PERSONAL INFO -->
-              <div class="profile_page-section" id="profile_personalInfoPage">
+              <form class="profile_page-section" id="profile_personalInfoPage">
                 <!-- PICTURE, DESCRIPTION -->
                 <div class="flex items-center gap-6 mb-6">
-                  <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-umMaroon flex-shrink-0">
-                    <img src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full object-cover" />
+                  <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-umMaroon flex-shrink-0 cursor-pointer relative">
+                    <label for="profileImageInput" class="w-full h-full block cursor-pointer">
+                      <img id="profileImage" src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full object-cover" />
+                      <input id="profileImageInput" type="file" accept="image/*" class="hidden" />
+                      <span class="absolute bottom-1 right-1 text-umMaroon px-2 py-1 text-s">Change</span>
+                    </label>
                   </div>
+
                   <div class="flex flex-col gap-2">
                     <label for="profileDescription" class="text-lg font-bold text-slate-800 font-semibold mb-1">Description:</label>
-                    <textarea id="profileDescription" type="text" class="border rounded-lg px-3 py-2 text-slate-800 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold">I am a 4th year CS major.</textarea>
+                    <textarea rows="2" cols="28" style="resize: none;" id="profileDescription" type="text" class="border rounded-lg px-3 py-2 text-slate-800 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" required>I am a 4th year CS major.</textarea>
                   </div>
                 </div>
 
@@ -1090,25 +1098,25 @@
                   <!-- NAME -->
                   <div class="flex items-center justify-between gap-6 mb-1">
                     <h3 class="text-lg font-bold text-slate-800 font-semibold">Name:</h3>
-                    <input id="profileName" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Hassan Khan" />
+                    <p class="text-slate-600">Hassan Khan</p>
                   </div>
 
                   <!-- PREFERRED NAME -->
                   <div class="flex items-center justify-between gap-6 mb-1">
                     <h3 class="text-lg font-bold text-slate-800 font-semibold">Preferred Name:</h3>
-                    <input id="profilePreferredName" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Hassan Khan" />
+                    <input id="profilePreferredName" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Hassan Khan" required/>
                   </div>
 
                   <!-- DATE OF BIRTH -->
                   <div class="flex items-center justify-between gap-6 mb-1">
-                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Date of Bearth:</h3>
-                    <input id="profileDoB" type="date" style="width: 207px;" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="2001-09-14"/>
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Date of Birth:</h3>
+                    <p class="text-slate-600">2003-07-18</p>
                   </div>
 
                   <!-- FACULTY -->
                   <div class="flex items-center justify-between gap-6 mb-6">
                     <h3 class="text-lg font-bold text-slate-800 font-semibold">Faculty:</h3>
-                    <input id="profileFaculty" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Computer Science" />
+                    <p class="text-slate-600">Computer Science</p>
                   </div>
 
                   <!-- EMAIL -->
@@ -1128,10 +1136,10 @@
                 <!-- SAVE AND DISCARD BUTTONS -->
                 <div class="flex gap-4 mt-8">
                   <button type="button" id="discardProfileChanges" class="bg-slate-100 text-slate-800 font-semibold px-5 py-2 rounded-lg shadow hover:bg-slate-200 transition">Discard Changes</button>
-                  <button type="button" id="saveProfileChanges" class="bg-umGold text-umMaroon font-semibold px-5 py-2 rounded-lg shadow hover:bg-umGoldDark transition">Save Changes</button>
+                  <button type="submit" id="saveProfileChanges" class="bg-umGold text-umMaroon font-semibold px-5 py-2 rounded-lg shadow hover:bg-umGoldDark transition">Save Changes</button>
                 </div>
 
-              </div>
+              </form>
 
               <!-- PRIVACY -->
               <div class="profile_page-section hidden" id="profile_privacyPage">
