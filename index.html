@@ -919,90 +919,147 @@
 
         <!-- PROFILE -->
         <section id="profile-page" class="page-section hidden">
-          <h1 class="text-2xl font-bold mb-3">Your Profile</h1>
-
-          <div class="bg-white rounded-xl shadow flex items-center gap-6 mb-6">
+          <div class="bg-white rounded-xl shadow flex items-center gap-6 mb-6 min-w-[680px]">
             <!-- LEFT SIDE -->
-            <aside class="p-6 flex flex-col justify-start items-stretch h-full min-h-[400px] w-56">
-              <button type="button" data-target="profile_personalInfoPage" class="profile_btn bg-umGold shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Personal Info</button>
-              <button type="button" data-target="profile_privacyPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Privacy</button>
-              <button type="button" data-target="profile_securityPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Security</button>
-              <button type="button" data-target="profile_notificationsPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Notifications</button>
-            </aside>
+            <div class="p-6 space-y-6 h-full min-h-[400px] w-60 max-w-[181px]">
+              <aside class="flex flex-col justify-start items-stretch h-full min-h-[400px] w-60 max-w-[181px]">
+                <div style="margin-bottom: 16px;">
+                  <h1 class="text-2xl font-bold text-umMaroon mb-1">Your Profile</h1>
+                </div>
+                <button type="button" data-target="profile_personalInfoPage" class="profile_btn bg-slate-100 bg-umGold shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Personal Info</button>
+                <button type="button" data-target="profile_privacyPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Privacy</button>
+                <button type="button" data-target="profile_notificationsPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Email Notifications</button>
+                <button type="button" data-target="profile_securityPage" class="profile_btn bg-slate-100 shadow mb-3 px-4 py-2 rounded-lg text-umMaroon font-semibold hover:bg-umGoldDark transition">Security</button>
+              </aside>
+            </div>
 
             <!-- VERTICAL DIVIDER LINE -->
-            <div class="border-l h-90 min-h-[350px] border-gray-300"></div>
+            <div class="ml-6 border-l h-95 min-h-[350px] border-gray-300"></div>
 
             <!-- RIGHT SIDE -->
-            <div class="p-6 space-y-6 h-full min-h-[400px] w-full min-w-[600px]">
+            <div class="p-6 space-y-6 h-full min-h-[400px] w-full min-w-[450px]">
               <!-- PERSONAL INFO -->
               <div class="profile_page-section" id="profile_personalInfoPage">
                 <!-- PICTURE, DESCRIPTION -->
                 <div class="flex items-center gap-6 mb-6">
-                  <div class="w-24 h-24 rounded overflow-hidden border-2 border-umMaroon flex-shrink-0">
+                  <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-umMaroon flex-shrink-0">
                     <img src="https://www.shutterstock.com/shutterstock/photos/2345549599/display_1500/stock-vector-avatar-photo-default-user-icon-picture-face-social-person-image-avatar-vector-illustration-eps-2345549599.jpg" class="w-full h-full object-cover" />
                   </div>
-                  <div>
-                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Description:</h3>
-                    <p class="text-slate-600">Description text</p>
+                  <div class="flex flex-col gap-2">
+                    <label for="profileDescription" class="text-lg font-bold text-slate-800 font-semibold mb-1">Description:</label>
+                    <textarea id="profileDescription" type="text" class="border rounded-lg px-3 py-2 text-slate-800 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold">I am a 4th year CS major.</textarea>
                   </div>
                 </div>
 
-                <!-- NAME -->
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Name:</h3>
-                  <h3 class="text-slate-600">Hassan Khan</h3>
+                <div class="w-full max-w-[370px]">
+                  <!-- NAME -->
+                  <div class="flex items-center justify-between gap-6 mb-1">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Name:</h3>
+                    <input id="profileName" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Hassan Khan" />
+                  </div>
+
+                  <!-- PREFERRED NAME -->
+                  <div class="flex items-center justify-between gap-6 mb-1">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Preferred Name:</h3>
+                    <input id="profilePreferredName" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Hassan Khan" />
+                  </div>
+
+                  <!-- DATE OF BIRTH -->
+                  <div class="flex items-center justify-between gap-6 mb-1">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Date of Bearth:</h3>
+                    <input id="profileDoB" type="date" style="width: 207px;" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="2001-09-14"/>
+                  </div>
+
+                  <!-- FACULTY -->
+                  <div class="flex items-center justify-between gap-6 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Faculty:</h3>
+                    <input id="profileFaculty" type="text" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" value="Computer Science" />
+                  </div>
+
+                  <!-- EMAIL -->
+                  <div class="flex items-center justify-between gap-6">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Email:</h3>
+                    <p class="text-slate-600">example@mail.com</p>
+                  </div>
+
+                  <!-- PHONE NUMBER -->
+                  <div class="flex items-center justify-between gap-6">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Phone Number:</h3>
+                    <p class="text-slate-600">204 555 5555</p>
+                  </div>
+
                 </div>
 
-                <!-- DATE OF BIRTH -->
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Date of Bearth:</h3>
-                  <p class="text-slate-600">November 24, 2001</p>
+                <!-- SAVE AND DISCARD BUTTONS -->
+                <div class="flex gap-4 mt-8">
+                  <button type="button" id="discardProfileChanges" class="bg-slate-100 text-slate-800 font-semibold px-5 py-2 rounded-lg shadow hover:bg-slate-200 transition">Discard Changes</button>
+                  <button type="button" id="saveProfileChanges" class="bg-umGold text-umMaroon font-semibold px-5 py-2 rounded-lg shadow hover:bg-umGoldDark transition">Save Changes</button>
                 </div>
 
-                <!-- PREFERRED NAME -->
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Preferred Name:</h3>
-                  <p class="text-slate-600">Hassan Khan</p>
-                </div>
-
-                <!-- FACULTY -->
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Faculty:</h3>
-                  <p class="text-slate-600">Faculty name</p>
-                </div>
-                </div>
+              </div>
 
               <!-- PRIVACY -->
               <div class="profile_page-section hidden" id="profile_privacyPage">
                 <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your name </h3>
+                    <h1 class="text-2xl font-bold text-slate-800 font-bold">Select who can see your personal data:</h1>
                 </div>
+                
+                <div class="w-full max-w-[400px]">
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your Date of Birth</h3>
-                </div>
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your Name </h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your email</h3>
-                </div>
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your Date of Birth</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your name</h3>
-                </div>
+                  <div class="flex items-center justify-between gap-6 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Everyone can see your Email</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your Date of Birth</h3>
-                </div>
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your Name</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your email</h3>
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your Date of Birth</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
+
+                  <div class="flex items-center justify-between gap-6 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Friends can see your Email</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
                 </div>
 
               </div>
 
               <!-- SECURITY -->
               <div class="profile_page-section hidden" id="profile_securityPage">
+                TODO: add delete account button and configuration of email and password popups
                 <div class="flex items-center gap-6 mb-6">
                   <h3 class="text-lg font-bold text-slate-800 font-semibold">Email:</h3>
                 </div>
@@ -1011,14 +1068,38 @@
                   <h3 class="text-lg font-bold text-slate-800 font-semibold">Password:</h3>
                 </div>
 
+              </div>
+
               <!-- NOTIFICATIONS -->
               <div class="profile_page-section hidden" id="profile_notificationsPage">
                 <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Organizator 1</h3>
+                    <h1 class="text-2xl font-bold text-slate-800 font-bold">Select who can send you email Notifications:</h1>
                 </div>
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Organizator 2</h3>
+                <div class="w-full max-w-[350px]">
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">CSSA</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
+
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">WICS</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
+
+                  <div class="flex items-center justify-between gap-6 mb-3">
+                    <h3 class="text-lg font-bold text-slate-800 font-semibold">Devclub</h3>
+                    <label class="inline-flex items-center me-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer" checked>
+                      <div class="relative shadow w-9 h-5 bg-slate-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-800 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-umGold dark:peer-checked:bg-umGold"></div>
+                    </label>
+                  </div>
                 </div>
 
               </div>
