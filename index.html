@@ -1126,7 +1126,7 @@
                     <label for="profileImageInput" class="w-full h-full block cursor-pointer">
                       <img id="profileImage" src="https://i0.wp.com/kitesandpuppets.ca/wp-content/uploads/2022/10/bison_stuffed_animal_1.jpg?fit=1280%2C1280&ssl=1" class="w-full h-full object-cover" />
                       <input id="profileImageInput" type="file" accept="image/*" class="hidden" />
-                      <span class="absolute bottom-1 right-1 text-umMaroon px-2 py-1 text-s">Change</span>
+                      <span class="absolute bottom-1 right-1 bg-umGold text-umMaroon px-2 py-1 text-xs rounded-xl shadow hover:bg-umGoldDark transition">Change</span>
                     </label>
                   </div>
 
@@ -1164,7 +1164,7 @@
                   <!-- EMAIL -->
                   <div class="flex items-center justify-between gap-6">
                     <h3 class="text-lg font-bold text-slate-800 font-semibold">Email:</h3>
-                    <p class="text-slate-600">example@mail.com</p>
+                    <p class="text-slate-600">hassanKhan34@studentmail.com</p>
                   </div>
 
                   <!-- PHONE NUMBER -->
@@ -1243,16 +1243,33 @@
               </div>
 
               <!-- SECURITY -->
-              <div class="profile_page-section hidden" id="profile_securityPage">
-                TODO: add delete account button and configuration of email and password popups
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Email:</h3>
-                </div>
+              <div class="profile_page-section hidden h-full w-full" id="profile_securityPage">
+                <div class="h-full w-full">
 
-                <div class="flex items-center gap-6 mb-6">
-                  <h3 class="text-lg font-bold text-slate-800 font-semibold">Password:</h3>
-                </div>
+                  <form id="passwordChangeForm" class="max-w-[450px]">
+                    <div class="flex justify-between items-center gap-6 mb-6">
+                      <h3 class="text-lg font-bold text-slate-800 font-semibold">Password:</h3>
+                      <input readonly type="password" value="testPwd" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold"/>
+                    </div>
 
+                    <div class="flex justify-between items-center gap-6 mb-6">
+                      <h3 class="text-lg font-bold text-slate-800 font-semibold">Enter New Password:</h3>
+                      <input type="password" id="PwdNew1" value="" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" required/>
+                    </div>
+
+                    <div class="flex justify-between items-center gap-6 mb-6">
+                      <h3 class="text-lg font-bold text-slate-800 font-semibold">Confirm New Password:</h3>
+                      <input type="password" id="PwdNew2" value="" class="border rounded-lg px-3 py-2 text-slate-600 bg-white shadow focus:outline-none focus:ring-2 focus:ring-umGold" required/>
+                    </div>
+
+                    <diV">
+                      <button type="submit" id="changePwdBtn" class="bg-umGold text-umMaroon font-semibold px-5 py-2 rounded-lg shadow hover:bg-umGoldDark transition">Change Password</button>
+                    </diV>
+                  </form>
+
+                  <diV style="margin-top: 90px; margin-left: auto;">
+                    <button type="button" id="deleteAccBtn" class="bg-red-600 text-umGold font-semibold px-5 py-2 rounded-lg shadow hover:bg-umMaroon transition">Request Account Deletion</button>
+                  </diV>
               </div>
 
               <!-- NOTIFICATIONS -->

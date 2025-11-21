@@ -2048,6 +2048,21 @@ function checkLocationMismatch(data) {
       reader.readAsDataURL(file);
     });
 
+    $('#deleteAccBtn').on('click', function () {
+      showToast('The deletion confirmation was sent to your email.');
+    });
+
+    $('#passwordChangeForm').on('submit', function (event) {
+      event.preventDefault();
+      if ($('#PwdNew1').val().length < 6) {
+        showToast('Password should be at least 6 symbols in length!')
+      } else if ($('#PwdNew1').val() == $('#PwdNew2').val()){
+        showToast('Password changed succesfully!')
+      } else {
+        showToast('Passwords should match!')
+      }
+    });
+
   }
   refreshMessageBadges();
 });
