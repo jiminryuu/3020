@@ -1091,18 +1091,18 @@ function sortEventsByDate(events) {
     // ---------- Friends + Friend Requests (Social tabs) ----------
 
     const FRIENDS = [
-      { id: "rodrigo", name: "Rodrigo", subtitle: "Joined 2 events", tag: "Invite (UMES)" },
-      { id: "will",    name: "Will",    subtitle: "Shared 5 events", tag: "Invite (CMSS)" },
-      { id: "vassily", name: "Vassily", subtitle: "Shared photos of “Runners”", tag: "Invite (UMIEEE)" },
-      { id: "jamal",   name: "Jamal",   subtitle: "Shared “Runners” event",      tag: "Invite (MMECS)" },
+      { id: "rodrigo", name: "Rodrigo", subtitle: "4th year computer Engineering student"},
+      { id: "will",    name: "Will",    subtitle: "3rd year computer science student"},
+      { id: "vassily", name: "Vassily", subtitle: "2nd year computer science student"},
+      { id: "Mark",   name: "Jamal",   subtitle: "1st year Environmental science student" },
     ];
     
     const FRIENDS_BASE_TOTAL = 120 - FRIENDS.length;
 
     let FRIEND_REQUESTS = [
-      { id: "Ji Min", name: "Ji Min", subtitle: "2 mutual events • Robotics Club" },
-      { id: "humberto", name: "Humberto",   subtitle: "1 shared event • “Runners” photos" },
-      { id: "henry",  name: "Henry",    subtitle: "Recently joined your event" },
+      { id: "Ji Min", name: "Ji Min", subtitle: "4th year computer science student" },
+      { id: "humberto", name: "Humberto",   subtitle: "2nd year electrical engineering student" },
+      { id: "henry",  name: "Henry",    subtitle: "4th year women's and gender studies student" },
     ];
     
     function updateSocialBadges() {
@@ -1146,19 +1146,15 @@ function sortEventsByDate(events) {
       visibleFriends.forEach(friend => {
         $grid.append(`
           <article
-            class="flex flex-col justify-between bg-white border border-slate-200 rounded-lg p-3
+            class="flex flex-col bg-white border border-slate-200 rounded-lg p-3
                    h-full min-w-0"
           >
             <div>
               <p class="font-semibold text-slate-900 truncate">${friend.name}</p>
-              <p class="text-xs text-slate-500">${friend.subtitle}</p>
+              <p class="text-xs text-slate-500 mt-1">
+                ${friend.subtitle}
+              </p>
             </div>
-            <button
-              class="mt-3 text-xs font-semibold text-umMaroon bg-umGold/20 px-3 py-1 rounded-full"
-              type="button"
-            >
-              Message
-            </button>
           </article>
         `);
       });
@@ -1852,6 +1848,24 @@ function checkLocationMismatch(data) {
         const mode = $('#popularFilter').val() || 'everyone';
         renderPopularEvents(mode);
       }
+    });
+
+    // "Suggestions for You" → Add Friend button
+    $(document).on("click", ".btn-add-friend", function () {
+      const $btn = $(this);
+
+      // Change text to show the request was sent
+      $btn.text("Request sent");
+
+      // Disable the button so it can't be clicked again
+      $btn.prop("disabled", true);
+
+      // So it looks inactive
+      $btn
+        .removeClass("border-umGold text-umMaroon bg-umGold/10")
+        .addClass("border-slate-200 text-slate-500 bg-slate-100 cursor-default");
+
+      showToast("Friend request sent ✅");
     });
 
     // Filters / Search
