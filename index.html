@@ -510,7 +510,7 @@
                         <span class="text-xs text-slate-500 whitespace-nowrap">1 h ago</span>
                       </li>
                       <li class="flex justify-between gap-4">
-                        <span>Chuka liked photos from “Runners” event</span>
+                        <span>Rawand earned early riser achievement</span>
                         <span class="text-xs text-slate-500 whitespace-nowrap">3 h ago</span>
                       </li>
                     </ul>
@@ -555,21 +555,43 @@
             <!-- RIGHT: messages column -->
             <aside class="space-y-4">
               <div id="messagesPane" class="bg-white rounded-xl shadow p-4 space-y-3">
-                <h2 class="text-sm font-semibold text-slate-600 mb-1">Messages</h2>
+                <div class="flex items-center justify-between mb-1">
+                  <h2 class="text-sm font-semibold text-slate-600">Messages</h2>
+                  <!-- Total unread badge (hidden when 0) -->
+                  <span
+                    id="messagesBadge"
+                    class="inline-flex items-center justify-center rounded-full bg-red-500 text-white
+                           text-[10px] font-semibold px-2 py-0.5 hidden">
+                    0
+                  </span>
+                </div>
 
                 <!-- Message 1 -->
                 <button
-                  class="message-thread w-full flex items-center gap-3 border border-slate-200 rounded-lg p-2 hover:bg-slate-50 text-left"
-                  data-friend="Sarah"
+                class="message-thread w-full flex items-center gap-3 border border-slate-200 rounded-lg p-2 hover:bg-slate-50 text-left"
+                data-friend="Sarah"
+              >
+                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
+                  <i class="fa-solid fa-user text-slate-500 text-xs"></i>
+                </div>
+
+                <div class="flex-1">
+                  <p class="text-sm font-semibold">Sarah</p>
+                  <p class="text-xs text-slate-500 truncate">
+                    “Are you going to the Robotics Club event?”
+                  </p>
+                </div>
+
+                <!-- per-thread bubble -->
+                <span
+                  class="msg-unread-badge ml-auto inline-flex items-center justify-center
+                        rounded-full bg-red-500 text-white text-[10px] font-semibold
+                        px-1.5 py-0.5 hidden"
+                  data-badge-for="Sarah"
                 >
-                  <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
-                    <i class="fa-solid fa-user text-slate-500 text-xs"></i>
-                  </div>
-                  <div class="flex-1">
-                    <p class="text-sm font-semibold">Sarah</p>
-                    <p class="text-xs text-slate-500 truncate">“Are you going to the Robotics Club event?”</p>
-                  </div>
-                </button>
+                  0
+                </span>
+              </button>
 
                 <!-- Message 2 -->
                 <button
@@ -583,6 +605,12 @@
                     <p class="text-sm font-semibold">Chuka</p>
                     <p class="text-xs text-slate-500 truncate">“Thanks for sharing the Runners photos!”</p>
                   </div>
+                  <span
+                    class="msg-unread-badge ml-auto inline-flex items-center justify-center
+                          rounded-full bg-red-500 text-white text-[10px] font-semibold
+                          px-1.5 py-0.5 hidden"
+                    data-badge-for="Chuka"
+                    >
                 </button>
                 </div>
               </aside>

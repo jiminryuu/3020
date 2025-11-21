@@ -946,9 +946,7 @@ function sortEventsByDate(events) {
     renderPopularEvents(this.value);
   });
 
-
   // ---------- Simple Messages / Chat Popup ----------
-  // In-memory fake threads just for prototype
   const MESSAGE_THREADS = {
     Sarah: [
       { from: "them", text: "Are you going to the Robotics Club event?" },
@@ -961,6 +959,42 @@ function sortEventsByDate(events) {
   };
 
   let currentFriend = null;
+
+  // simple unread counts
+  const UNREAD_COUNTS = {
+    Sarah: 1,
+    Chuka: 1,
+  };
+
+  // update *all* badges (per-thread + total)
+  function refreshMessageBadges() {
+    let total = 0;
+
+    // per-thread bubbles
+    $(".message-thread").each(function () {
+      const friendName = $(this).data("friend");
+      const count = UNREAD_COUNTS[friendName] || 0;
+      total += count;
+
+      const $badge = $(this).find('.msg-unread-badge[data-badge-for="' + friendName + '"]');
+
+      if (!$badge.length) return;
+
+      if (count > 0) {
+        $badge.text(count).removeClass("hidden");
+      } else {
+        $badge.addClass("hidden");
+      }
+    });
+
+    // header bubble
+    const $headerBadge = $("#messagesBadge");
+    if (total > 0) {
+      $headerBadge.text(total).removeClass("hidden");
+    } else {
+      $headerBadge.addClass("hidden");
+    }
+  }
 
   function renderMessageThread(friendName) {
     const $body = $("#messageThreadBody");
@@ -995,7 +1029,6 @@ function sortEventsByDate(events) {
       `);
     });
 
-    // Scroll to bottom on open / new message
     $body.scrollTop($body[0].scrollHeight);
   }
 
@@ -1012,21 +1045,25 @@ function sortEventsByDate(events) {
     $("#messageInput").val("");
   }
 
-  // Click on a message card → open popup
+  // open thread on click + mark as read
   $(document).on("click", ".message-thread", function () {
     const friendName = $(this).data("friend");
+
+    if (UNREAD_COUNTS[friendName] !== undefined) {
+      UNREAD_COUNTS[friendName] = 0;
+      refreshMessageBadges();
+    }
+
     openMessageModal(friendName);
   });
 
-  // Close button + click outside (overlay)
+  // close modal
   $("#messageClose").on("click", closeMessageModal);
   $(document).on("click", "#messageModal", function (e) {
-    if (e.target.id === "messageModal") {
-      closeMessageModal();
-    }
+    if (e.target.id === "messageModal") closeMessageModal();
   });
 
-  // Send message
+  // send message
   $("#messageSendBtn").on("click", function () {
     const text = ($("#messageInput").val() || "").trim();
     if (!text || !currentFriend) return;
@@ -1040,7 +1077,7 @@ function sortEventsByDate(events) {
     renderMessageThread(currentFriend);
   });
 
-  // Press Enter to send (Shift+Enter = newline)
+  // Enter to send
   $("#messageInput").on("keydown", function (e) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -1879,6 +1916,5 @@ function showProfileSection(id) {
     });
 
   }
-
-
+  refreshMessageBadges();
 });
