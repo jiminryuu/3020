@@ -942,16 +942,37 @@
                 <input type="text" id="eventName" class="w-full border rounded-lg p-2" required>
               </div>
 
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-sm font-medium mb-1">Date</label>
-                  <input type="date" id="eventDate" class="w-full border rounded-lg p-2" required>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1">Time</label>
-                  <input type="time" id="eventTime" class="w-full border rounded-lg p-2" required>
-                </div>
-              </div>
+<div class="grid grid-cols-2 gap-3">
+  <div>
+    <label class="block text-sm font-medium mb-1">Date</label>
+    <input type="date" id="eventDate" class="w-full border rounded-lg p-2" required>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Time</label>
+    <div class="grid grid-cols-2 gap-2">
+      <div>
+        <input
+          type="time"
+          id="eventTimeStart"
+          class="w-full border rounded-lg p-2"
+          required
+        />
+        <p class="text-[11px] text-slate-500 mt-1">Start</p>
+      </div>
+      <div>
+        <input
+          type="time"
+          id="eventTimeEnd"
+          class="w-full border rounded-lg p-2"
+          required
+        />
+        <p class="text-[11px] text-slate-500 mt-1">End</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div>
   <label class="block text-sm font-medium mb-1">Choose a campus landmark or click on the map</label>
   <select id="landmarkSelect" class="w-full border rounded-lg p-2">

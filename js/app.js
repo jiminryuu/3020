@@ -1515,23 +1515,33 @@ function sortEventsByDate(events) {
     reader.readAsDataURL(file);
   });
 
-    // Collect form data
-    function collectEventData() {
-      return {
-        name: $('#eventName').val(),
-        date: convertDate($('#eventDate').val()),
-        time: convertTime($('#eventTime').val()),
-        place: $('#eventPlace').val(),
-        category: $('#eventCategory').val(),
-        price: Number($('#eventPrice').val()),
-        //image: $('#eventImage').val(),
-         image: createEventImageDataUrl || PLACEHOLDER_IMG,
-        description: $('#eventDesc').val(),
-        lat: parseFloat($('#eventLat').val()),
-        lng: parseFloat($('#eventLng').val()),
-        type: 'event',
-      };
-    }
+function collectEventData() {
+  const startRaw = $('#eventTimeStart').val();
+  const endRaw   = $('#eventTimeEnd').val();
+
+  const start = convertTime(startRaw);
+  const end   = convertTime(endRaw);
+
+  // Build "6:00 PM - 8:00 PM" (or gracefully degrade if one is missing)
+  const timeDisplay =
+    start && end ? `${start} - ${end}` :
+    start || end || '';
+
+  return {
+    name: $('#eventName').val(),
+    date: convertDate($('#eventDate').val()),
+    time: timeDisplay,
+    place: $('#eventPlace').val(),
+    category: $('#eventCategory').val(),
+    price: Number($('#eventPrice').val()),
+    image: createEventImageDataUrl || PLACEHOLDER_IMG,
+    description: $('#eventDesc').val(),
+    lat: parseFloat($('#eventLat').val()),
+    lng: parseFloat($('#eventLng').val()),
+    type: 'event',
+  };
+}
+
 
     // Approximate distance in meters between two lat/lng points
 function distanceCalc(lat1, lng1, lat2, lng2) {
